@@ -1,739 +1,138 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-gray-900">
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BM Pro - Gaming Platform</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Ubuntu:wght@400;500;700&display=swap');
-        
-        body {
-            font-family: 'Ubuntu', sans-serif;
-            background-image: url('http://static.photos/gaming/1200x630/5');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        
-        .game-font {
-            font-family: 'Press Start 2P', cursive;
-        }
-        
-        .glow {
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
-        }
-        
-        .pixel-border {
-            border: 4px solid #4b5563;
-            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
-        }
-        
-        .task-complete {
-            background: linear-gradient(90deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.05) 100%);
-            border-left: 4px solid rgba(34,197,94,1);
-        }
-        
-        .task-incomplete {
-            background: linear-gradient(90deg, rgba(239,68,68,0.2) 0%, rgba(239,68,68,0.05) 100%);
-            border-left: 4px solid rgba(239,68,68,1);
-        }
-        
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-        
-        .content {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BM Pro | لینک دیسکورد</title>
+  <meta name="color-scheme" content="dark">
+  <style>
+    :root{
+      --bg1:#080b1a; --bg2:#0d1026; --neon:#6cf0ff; --neon2:#7cffb7; --txt:#e8f1ff; --muted:#95a3c7; --card:#0f1533aa;
+      --accent:#8a7cff; --danger:#ff6b7c; --ok:#7CFF95; --warn:#ffd36c;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Vazirmatn,IRANSans,system-ui,Segoe UI,Roboto,sans-serif;color:var(--txt);
+      background: radial-gradient(1200px 800px at 20% -10%, #18224a 0%, rgba(0,0,0,0) 60%),
+                  radial-gradient(1400px 1000px at 120% 30%, #1b2d66 0%, rgba(0,0,0,0) 65%),
+                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      overflow:hidden;
+    }
+    .grid{
+      position:relative;min-height:100%;
+      display:grid;place-items:center;padding:40px;
+    }
+    .logo{
+      position:absolute;top:24px;left:24px;font-weight:800;letter-spacing:.5px;
+      background:linear-gradient(90deg,var(--neon),var(--accent),var(--neon2));
+      -webkit-background-clip:text;background-clip:text;color:transparent;font-size:22px
+    }
+    .card{
+      width:min(680px,92vw);padding:28px;border-radius:22px;background:backdrop-filter: blur(8px);
+      background: linear-gradient(180deg,#121936aa,#0f1430aa);
+      border:1px solid #2b3566; box-shadow: 0 10px 30px #0008, inset 0 0 40px #0b1044aa;
+    }
+    .title{font-size:28px;margin:0 0 6px}
+    .subtitle{margin:0 0 24px;color:var(--muted)}
+    .cta{
+      display:flex;gap:14px;flex-wrap:wrap;margin-top:16px
+    }
+    .btn{
+      appearance:none;border:none;cursor:pointer;
+      padding:14px 18px;border-radius:14px;font-weight:700;color:#001427;
+      background:linear-gradient(90deg,var(--neon),var(--accent));
+      box-shadow:0 0 15px #6cf0ff55, 0 0 35px #8a7cff33, inset 0 0 10px #ffffff22;
+      transition: transform .15s ease, box-shadow .15s ease, filter .2s;
+    }
+    .btn:hover{transform:translateY(-2px);filter:saturate(1.1)}
+    .btn:active{transform:translateY(0)}
+    .ghost{
+      background:#101632;border:1px solid #2a3563;color:var(--txt);box-shadow:none
+    }
+    .hero{
+      display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:stretch
+    }
+    @media (max-width:760px){.hero{grid-template-columns:1fr}}
+    .panel{
+      padding:16px;border-radius:16px;background:linear-gradient(180deg,#0f1431aa,#0b0f26aa);
+      border:1px solid #26305d
+    }
+    .tag{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;
+         border:1px solid #2a3563;color:var(--muted);font-size:12px}
+    .bullet{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 12px var(--ok)}
+    .tips{display:grid;gap:10px}
+    .small{font-size:12px;color:var(--muted)}
+    .footer{
+      margin-top:18px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px
+    }
+    a.link{color:var(--neon)}
+    .glow-ring{
+      position:absolute;inset:auto auto -140px -140px;width:360px;height:360px;border-radius:50%;
+      filter:blur(60px);background:radial-gradient(circle at 50% 50%, #6cf0ff44, transparent 60%)
+    }
+  </style>
 </head>
-<body class="min-h-full">
-    <div id="particles-js"></div>
-    <div class="content min-h-screen flex flex-col">
-        <!-- Login Page (Initial View) -->
-        <div id="login-page" class="flex flex-col items-center justify-center min-h-screen p-4">
-            <div class="w-full max-w-md bg-gray-800/90 backdrop-blur-sm rounded-xl p-8 pixel-border" data-aos="zoom-in">
-                <div class="text-center mb-8">
-                    <h1 class="text-4xl font-bold text-blue-400 glow game-font mb-2">BM PRO</h1>
-                    <p class="text-gray-300">Connect your Discord account to start gaming</p>
-                </div>
-                
-                <div class="mb-6">
-                    <div class="flex items-center justify-center mb-4">
-                        <i data-feather="disc" class="text-indigo-400 w-12 h-12"></i>
-                    </div>
-                    <button id="discord-login" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
-                        <i data-feather="disc" class="w-5 h-5"></i>
-                        LINK DISCORD ACCOUNT
-                    </button>
-                </div>
-                
-                <div class="text-center text-gray-400 text-sm">
-                    By connecting, you agree to our Terms of Service
-                </div>
-            </div>
+<body>
+  <div class="grid">
+    <div class="logo">BM Pro — Gaming Manager</div>
+
+    <div class="card">
+      <div class="hero">
+        <div class="panel">
+          <h1 class="title">ورود به BM Pro</h1>
+          <p class="subtitle">اول اکانت دیسکوردت رو لینک کن؛ بعد مستقیم وارد پنل گیمینگ مدیریتی میشی.</p>
+          <div class="tag"><span class="bullet"></span> ورود بدون پسورد — فقط با دیسکورد</div>
+
+          <div class="cta">
+            <button id="discordBtn" class="btn">لینک کردن اکانت دیسکورد</button>
+            <a class="btn ghost" href="https://discord.gg/kkdDtDcG" target="_blank" rel="noopener">چنل ما</a>
+          </div>
+
+          <p class="small" style="margin-top:10px">با کلیک، به دیسکورد هدایت می‌شی تا اجازه بدی اسم و آیدی‌ت رو بخونیم. بعدش به پنل منتقل می‌شی.</p>
         </div>
-        
-        <!-- Dashboard Page (Hidden Initially) -->
-        <div id="dashboard-page" class="hidden min-h-screen">
-            <!-- Header -->
-            <header class="bg-gray-900/80 backdrop-blur-sm border-b border-gray-700">
-                <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-                    <div class="flex items-center">
-                        <h1 class="text-xl font-bold text-blue-400 glow game-font">BM PRO</h1>
-                    </div>
-                    
-                    <div class="flex items-center space-x-4">
-                        <div class="flex items-center bg-gray-800 px-3 py-1 rounded-full">
-                            <i data-feather="award" class="text-yellow-400 w-4 h-4 mr-2"></i>
-                            <span id="points-display" class="text-white font-medium">0</span>
-                        </div>
-                        
-                        <div class="relative group">
-                            <button id="user-menu-button" class="flex items-center space-x-2 focus:outline-none">
-                                <div id="user-avatar" class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold"></div>
-                                <i data-feather="chevron-down" class="text-gray-400 w-4 h-4"></i>
-                            </button>
-                            
-                            <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-50">
-                                <a href="#" id="logout-btn" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 flex items-center">
-                                    <i data-feather="log-out" class="w-4 h-4 mr-2"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-            
-            <!-- Main Content -->
-            <main class="flex-grow container mx-auto px-4 py-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Tasks Panel -->
-                    <div class="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 pixel-border" data-aos="fade-right">
-                        <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-xl font-bold text-white flex items-center">
-                                <i data-feather="check-circle" class="text-green-400 w-5 h-5 mr-2"></i>
-                                Tasks
-                            </h2>
-                            <span class="text-xs bg-blue-500 text-white px-2 py-1 rounded">Earn Points</span>
-                        </div>
-                        
-                        <div class="space-y-4">
-                            <!-- Daily Check Task -->
-                            <div id="daily-task" class="task-incomplete p-4 rounded-lg transition-all duration-300">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <h3 class="font-medium text-white">Daily Check-in</h3>
-                                        <p class="text-sm text-gray-400 mt-1">Visit the site daily to earn points</p>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <span class="text-xs bg-yellow-500 text-white px-2 py-1 rounded mr-2">+10</span>
-                                        <button id="daily-check-btn" class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
-                                            Verify
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Discord Join Task -->
-                            <div id="discord-task" class="task-incomplete p-4 rounded-lg transition-all duration-300">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <h3 class="font-medium text-white">Join Our Discord</h3>
-                                        <p class="text-sm text-gray-400 mt-1">Become part of our community</p>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <span class="text-xs bg-yellow-500 text-white px-2 py-1 rounded mr-2">+20</span>
-                                        <a href="https://discord.gg/kkdDtDcG" target="_blank" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded">
-                                            Join
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Phone Verification Task -->
-                            <div id="phone-task" class="task-incomplete p-4 rounded-lg transition-all duration-300">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <h3 class="font-medium text-white">Phone Verification</h3>
-                                        <p class="text-sm text-gray-400 mt-1">Verify your phone number</p>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <span class="text-xs bg-yellow-500 text-white px-2 py-1 rounded mr-2">+30</span>
-                                        <button id="phone-verify-btn" class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
-                                            Verify
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <div id="phone-form" class="hidden mt-3">
-                                    <input type="tel" id="phone-input" placeholder="+1234567890" class="w-full bg-gray-700 text-white px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <button id="submit-phone-btn" class="mt-2 w-full bg-green-600 hover:bg-green-700 text-white text-sm py-1 rounded">
-                                        Submit
-                                    </button>
-                                </div>
-                                <div id="phone-pending" class="hidden text-xs text-yellow-400 mt-2">
-                                    <i data-feather="clock" class="w-3 h-3 inline mr-1"></i> Pending admin approval
-                                </div>
-                            </div>
-                            
-                            <!-- Social Share Task -->
-                            <div id="social-task" class="task-incomplete p-4 rounded-lg transition-all duration-300">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <h3 class="font-medium text-white">Share on Social Media</h3>
-                                        <p class="text-sm text-gray-400 mt-1">Spread the word about BM Pro</p>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <span class="text-xs bg-yellow-500 text-white px-2 py-1 rounded mr-2">+15</span>
-                                        <button id="social-share-btn" class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
-                                            Share
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- User Info Panel -->
-                    <div class="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 pixel-border" data-aos="fade-up">
-                        <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-xl font-bold text-white flex items-center">
-                                <i data-feather="user" class="text-blue-400 w-5 h-5 mr-2"></i>
-                                User Information
-                            </h2>
-                            <span class="text-xs bg-indigo-500 text-white px-2 py-1 rounded">Connected</span>
-                        </div>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-center p-3 bg-gray-700/50 rounded-lg">
-                                <div class="bg-indigo-600 rounded-full w-10 h-10 flex items-center justify-center text-white font-bold mr-3" id="info-avatar">
-                                    U
-                                </div>
-                                <div>
-                                    <h3 class="font-medium text-white" id="discord-username">Username#0000</h3>
-                                    <p class="text-xs text-gray-400" id="discord-id">ID: 1234567890</p>
-                                </div>
-                            </div>
-                            
-                            <div class="p-3 bg-gray-700/50 rounded-lg">
-                                <h4 class="text-sm font-medium text-gray-300 mb-2">Account Status</h4>
-                                <div class="flex items-center text-sm">
-                                    <div class="w-2 h-2 rounded-full bg-green-500 mr-2"></div>
-                                    <span class="text-green-400">Connected</span>
-                                </div>
-                            </div>
-                            
-                            <div class="p-3 bg-gray-700/50 rounded-lg">
-                                <h4 class="text-sm font-medium text-gray-300 mb-2">Connected Since</h4>
-                                <p class="text-sm text-gray-400" id="join-date">Today</p>
-                            </div>
-                            
-                            <div class="p-3 bg-gray-700/50 rounded-lg">
-                                <h4 class="text-sm font-medium text-gray-300 mb-2">Our Discord</h4>
-                                <a href="https://discord.gg/kkdDtDcG" target="_blank" class="inline-flex items-center text-blue-400 hover:text-blue-300 text-sm">
-                                    <i data-feather="external-link" class="w-4 h-4 mr-1"></i>
-                                    Join our community
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Stats Panel -->
-                    <div class="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 pixel-border" data-aos="fade-left">
-                        <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-xl font-bold text-white flex items-center">
-                                <i data-feather="bar-chart-2" class="text-purple-400 w-5 h-5 mr-2"></i>
-                                Your Stats
-                            </h2>
-                            <span class="text-xs bg-purple-500 text-white px-2 py-1 rounded">Progress</span>
-                        </div>
-                        
-                        <div class="space-y-6">
-                            <div>
-                                <div class="flex justify-between text-sm text-gray-400 mb-1">
-                                    <span>Task Completion</span>
-                                    <span id="tasks-completed">0</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                    <div id="task-progress" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <div class="flex justify-between text-sm text-gray-400 mb-1">
-                                    <span>Points Earned</span>
-                                    <span id="total-points">0</span>
-                                </div>
-                                <div class="w-full bg-gray-700 rounded-full h-2.5">
-                                    <div id="points-progress" class="bg-yellow-500 h-2.5 rounded-full" style="width: 0%"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="pt-4 border-t border-gray-700">
-                                <h3 class="text-lg font-bold text-white mb-3">Achievements</h3>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div class="bg-gray-700/50 p-3 rounded-lg flex items-center">
-                                        <div class="bg-yellow-500/20 p-2 rounded-full mr-3">
-                                            <i data-feather="star" class="text-yellow-400 w-4 h-4"></i>
-                                        </div>
-                                        <div>
-                                            <h4 class="text-sm font-medium text-white">Newbie</h4>
-                                            <p class="text-xs text-gray-400">First login</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="bg-gray-700/50 p-3 rounded-lg flex items-center opacity-50">
-                                        <div class="bg-blue-500/20 p-2 rounded-full mr-3">
-                                            <i data-feather="check-circle" class="text-blue-400 w-4 h-4"></i>
-                                        </div>
-                                        <div>
-                                            <h4 class="text-sm font-medium text-white">Task Master</h4>
-                                            <p class="text-xs text-gray-400">Complete all tasks</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="bg-gray-700/50 p-3 rounded-lg flex items-center opacity-50">
-                                        <div class="bg-purple-500/20 p-2 rounded-full mr-3">
-                                            <i data-feather="award" class="text-purple-400 w-4 h-4"></i>
-                                        </div>
-                                        <div>
-                                            <h4 class="text-sm font-medium text-white">Point Collector</h4>
-                                            <p class="text-xs text-gray-400">Earn 100 points</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="bg-gray-700/50 p-3 rounded-lg flex items-center opacity-50">
-                                        <div class="bg-green-500/20 p-2 rounded-full mr-3">
-                                            <i data-feather="users" class="text-green-400 w-4 h-4"></i>
-                                        </div>
-                                        <div>
-                                            <h4 class="text-sm font-medium text-white">Community Member</h4>
-                                            <p class="text-xs text-gray-400">Join our Discord</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
+
+        <div class="panel tips">
+          <div>
+            <strong>نکته:</strong>
+            <div class="small">این نسخه روی GitHub Pages بدون بک‌اند کار می‌کند. امتیازها در مرورگر شما ذخیره می‌شود و با هر بار ورود باقی می‌ماند.</div>
+          </div>
+          <div>
+            <strong>تنظیمات لازم</strong>
+            <ul class="small" style="line-height:1.9">
+              <li>در کد زیر، <code>DISCORD_CLIENT_ID</code> را با Client ID اپ دیسکورد خودت عوض کن.</li>
+              <li><code>REDIRECT_URI</code> را آدرس کامل <code>app.html</code> بگذار و در دیسکورد همان را ثبت کن.</li>
+              <li>Scopes: <code>identify</code> (و در صورت نیاز <code>guilds</code>).</li>
+            </ul>
+          </div>
         </div>
+      </div>
+
+      <div class="footer">
+        <span>© BM Pro</span>
+        <span>حالت گیمینگ • طراحی نئونی</span>
+      </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Initialize AOS animations
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true
-        });
-        
-        // Initialize feather icons
-        feather.replace();
-        
-        // Particles.js configuration
-        document.addEventListener('DOMContentLoaded', function() {
-            if (document.getElementById('particles-js')) {
-                particlesJS('particles-js', {
-                    "particles": {
-                        "number": {
-                            "value": 80,
-                            "density": {
-                                "enable": true,
-                                "value_area": 800
-                            }
-                        },
-                        "color": {
-                            "value": "#3b82f6"
-                        },
-                        "shape": {
-                            "type": "circle",
-                            "stroke": {
-                                "width": 0,
-                                "color": "#000000"
-                            },
-                            "polygon": {
-                                "nb_sides": 5
-                            }
-                        },
-                        "opacity": {
-                            "value": 0.5,
-                            "random": false,
-                            "anim": {
-                                "enable": false,
-                                "speed": 1,
-                                "opacity_min": 0.1,
-                                "sync": false
-                            }
-                        },
-                        "size": {
-                            "value": 3,
-                            "random": true,
-                            "anim": {
-                                "enable": false,
-                                "speed": 40,
-                                "size_min": 0.1,
-                                "sync": false
-                            }
-                        },
-                        "line_linked": {
-                            "enable": true,
-                            "distance": 150,
-                            "color": "#3b82f6",
-                            "opacity": 0.4,
-                            "width": 1
-                        },
-                        "move": {
-                            "enable": true,
-                            "speed": 2,
-                            "direction": "none",
-                            "random": false,
-                            "straight": false,
-                            "out_mode": "out",
-                            "bounce": false,
-                            "attract": {
-                                "enable": false,
-                                "rotateX": 600,
-                                "rotateY": 1200
-                            }
-                        }
-                    },
-                    "interactivity": {
-                        "detect_on": "canvas",
-                        "events": {
-                            "onhover": {
-                                "enable": true,
-                                "mode": "grab"
-                            },
-                            "onclick": {
-                                "enable": true,
-                                "mode": "push"
-                            },
-                            "resize": true
-                        },
-                        "modes": {
-                            "grab": {
-                                "distance": 140,
-                                "line_linked": {
-                                    "opacity": 1
-                                }
-                            },
-                            "bubble": {
-                                "distance": 400,
-                                "size": 40,
-                                "duration": 2,
-                                "opacity": 8,
-                                "speed": 3
-                            },
-                            "repulse": {
-                                "distance": 200,
-                                "duration": 0.4
-                            },
-                            "push": {
-                                "particles_nb": 4
-                            },
-                            "remove": {
-                                "particles_nb": 2
-                            }
-                        }
-                    },
-                    "retina_detect": true
-                });
-            }
-            
-            // Mock Discord OAuth flow (in a real app, this would connect to Discord's API)
-            document.getElementById('discord-login').addEventListener('click', function() {
-                // Show loading state
-                const btn = this;
-                btn.innerHTML = '<i data-feather="loader" class="w-5 h-5 animate-spin"></i> CONNECTING...';
-                feather.replace();
-                
-                // Simulate API call delay
-                setTimeout(function() {
-                    // Mock user data (in a real app, this would come from Discord OAuth)
-                    const mockUser = {
-                        id: '1234567890',
-                        username: 'DiscordUser',
-                        discriminator: '1234',
-                        avatar: null,
-                        points: 0,
-                        tasksCompleted: 0,
-                        completedTasks: [],
-                        joinDate: new Date().toLocaleDateString()
-                    };
-                    
-                    // Save user to localStorage
-                    localStorage.setItem('bmpro_user', JSON.stringify(mockUser));
-                    
-                    // Hide login page, show dashboard
-                    document.getElementById('login-page').classList.add('hidden');
-                    document.getElementById('dashboard-page').classList.remove('hidden');
-                    
-                    // Update UI with user data
-                    updateUserUI(mockUser);
-                    
-                    // Show welcome notification
-                    showNotification('success', 'Successfully connected Discord account!');
-                    
-                }, 1500);
-            });
-            
-            // User menu toggle
-            document.getElementById('user-menu-button').addEventListener('click', function() {
-                document.getElementById('user-menu').classList.toggle('hidden');
-            });
-            
-            // Logout button
-            document.getElementById('logout-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                localStorage.removeItem('bmpro_user');
-                document.getElementById('dashboard-page').classList.add('hidden');
-                document.getElementById('login-page').classList.remove('hidden');
-                
-                // Reset login button
-                const btn = document.getElementById('discord-login');
-                btn.innerHTML = '<i data-feather="disc" class="w-5 h-5"></i> LINK DISCORD ACCOUNT';
-                feather.replace();
-                
-                showNotification('info', 'You have been logged out.');
-            });
-            
-            // Check if user is already logged in
-            const savedUser = localStorage.getItem('bmpro_user');
-            if (savedUser) {
-                const user = JSON.parse(savedUser);
-                document.getElementById('login-page').classList.add('hidden');
-                document.getElementById('dashboard-page').classList.remove('hidden');
-                updateUserUI(user);
-            }
-            
-            // Task completion handlers
-            document.getElementById('daily-check-btn').addEventListener('click', completeDailyTask);
-            document.getElementById('phone-verify-btn').addEventListener('click', showPhoneForm);
-            document.getElementById('submit-phone-btn').addEventListener('click', submitPhoneVerification);
-            document.getElementById('social-share-btn').addEventListener('click', completeSocialTask);
-            
-            // Close user menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('#user-menu-button') && !e.target.closest('#user-menu')) {
-                    document.getElementById('user-menu').classList.add('hidden');
-                }
-            });
-        });
-        
-        function updateUserUI(user) {
-            // Update avatar
-            const avatar = document.getElementById('user-avatar');
-            const infoAvatar = document.getElementById('info-avatar');
-            const firstLetter = user.username.charAt(0).toUpperCase();
-            avatar.textContent = firstLetter;
-            infoAvatar.textContent = firstLetter;
-            
-            // Update username and ID
-            document.getElementById('discord-username').textContent = `${user.username}#${user.discriminator}`;
-            document.getElementById('discord-id').textContent = `ID: ${user.id}`;
-            
-            // Update points
-            document.getElementById('points-display').textContent = user.points;
-            document.getElementById('total-points').textContent = `${user.points} pts`;
-            
-            // Update join date
-            document.getElementById('join-date').textContent = user.joinDate;
-            
-            // Update tasks completed
-            document.getElementById('tasks-completed').textContent = `${user.tasksCompleted}/4`;
-            const taskProgress = (user.tasksCompleted / 4) * 100;
-            document.getElementById('task-progress').style.width = `${taskProgress}%`;
-            
-            // Update points progress (cap at 100 for demo)
-            const pointsProgress = Math.min(user.points, 100);
-            document.getElementById('points-progress').style.width = `${pointsProgress}%`;
-            
-            // Update completed tasks
-            if (user.completedTasks.includes('daily')) {
-                document.getElementById('daily-task').classList.remove('task-incomplete');
-                document.getElementById('daily-task').classList.add('task-complete');
-                document.getElementById('daily-check-btn').textContent = 'Completed';
-                document.getElementById('daily-check-btn').classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                document.getElementById('daily-check-btn').classList.add('bg-green-600', 'cursor-not-allowed');
-                document.getElementById('daily-check-btn').disabled = true;
-            }
-            
-            if (user.completedTasks.includes('discord')) {
-                document.getElementById('discord-task').classList.remove('task-incomplete');
-                document.getElementById('discord-task').classList.add('task-complete');
-                const discordBtn = document.querySelector('#discord-task a');
-                discordBtn.textContent = 'Joined';
-                discordBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
-                discordBtn.classList.add('bg-green-600', 'cursor-not-allowed');
-            }
-            
-            if (user.completedTasks.includes('phone')) {
-                document.getElementById('phone-task').classList.remove('task-incomplete');
-                document.getElementById('phone-task').classList.add('task-complete');
-                document.getElementById('phone-verify-btn').textContent = 'Verified';
-                document.getElementById('phone-verify-btn').classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                document.getElementById('phone-verify-btn').classList.add('bg-green-600', 'cursor-not-allowed');
-                document.getElementById('phone-verify-btn').disabled = true;
-                document.getElementById('phone-form').classList.add('hidden');
-                document.getElementById('phone-pending').classList.add('hidden');
-            } else if (user.completedTasks.includes('phone_pending')) {
-                document.getElementById('phone-form').classList.add('hidden');
-                document.getElementById('phone-pending').classList.remove('hidden');
-            }
-            
-            if (user.completedTasks.includes('social')) {
-                document.getElementById('social-task').classList.remove('task-incomplete');
-                document.getElementById('social-task').classList.add('task-complete');
-                document.getElementById('social-share-btn').textContent = 'Shared';
-                document.getElementById('social-share-btn').classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                document.getElementById('social-share-btn').classList.add('bg-green-600', 'cursor-not-allowed');
-                document.getElementById('social-share-btn').disabled = true;
-            }
-        }
-        
-        function completeDailyTask() {
-            const user = JSON.parse(localStorage.getItem('bmpro_user'));
-            
-            // Check if already completed
-            if (user.completedTasks.includes('daily')) {
-                showNotification('info', 'You already completed your daily check-in today!');
-                return;
-            }
-            
-            // Add points and mark task as complete
-            user.points += 10;
-            user.tasksCompleted += 1;
-            user.completedTasks.push('daily');
-            localStorage.setItem('bmpro_user', JSON.stringify(user));
-            
-            // Update UI
-            updateUserUI(user);
-            
-            // Show success message
-            showNotification('success', '+10 points for daily check-in!');
-        }
-        
-        function showPhoneForm() {
-            const user = JSON.parse(localStorage.getItem('bmpro_user'));
-            
-            // Check if already completed
-            if (user.completedTasks.includes('phone')) {
-                showNotification('info', 'Your phone number is already verified!');
-                return;
-            }
-            
-            // Check if pending
-            if (user.completedTasks.includes('phone_pending')) {
-                showNotification('info', 'Your verification is pending admin approval.');
-                return;
-            }
-            
-            // Show form
-            document.getElementById('phone-form').classList.remove('hidden');
-        }
-        
-        function submitPhoneVerification() {
-            const phoneInput = document.getElementById('phone-input');
-            const phoneNumber = phoneInput.value.trim();
-            
-            if (!phoneNumber) {
-                showNotification('error', 'Please enter a valid phone number');
-                return;
-            }
-            
-            const user = JSON.parse(localStorage.getItem('bmpro_user'));
-            
-            // Mark as pending (in a real app, this would send to backend)
-            user.completedTasks.push('phone_pending');
-            localStorage.setItem('bmpro_user', JSON.stringify(user));
-            
-            // Update UI
-            document.getElementById('phone-form').classList.add('hidden');
-            document.getElementById('phone-pending').classList.remove('hidden');
-            document.getElementById('phone-verify-btn').textContent = 'Pending';
-            document.getElementById('phone-verify-btn').classList.remove('bg-blue-600', 'hover:bg-blue-700');
-            document.getElementById('phone-verify-btn').classList.add('bg-yellow-600', 'cursor-not-allowed');
-            document.getElementById('phone-verify-btn').disabled = true;
-            
-            showNotification('info', 'Phone verification submitted. Waiting for admin approval.');
-        }
-        
-        function completeSocialTask() {
-            const user = JSON.parse(localStorage.getItem('bmpro_user'));
-            
-            // Check if already completed
-            if (user.completedTasks.includes('social')) {
-                showNotification('info', 'You already shared on social media!');
-                return;
-            }
-            
-            // In a real app, this would open share dialogs
-            // For demo, we'll just simulate it
-            setTimeout(() => {
-                // Add points and mark task as complete
-                user.points += 15;
-                user.tasksCompleted += 1;
-                user.completedTasks.push('social');
-                localStorage.setItem('bmpro_user', JSON.stringify(user));
-                
-                // Update UI
-                updateUserUI(user);
-                
-                // Show success message
-                showNotification('success', '+15 points for sharing on social media!');
-            }, 1000);
-            
-            // Show temporary message
-            showNotification('info', 'Opening share dialog...');
-        }
-        
-        function showNotification(type, message) {
-            const notification = document.createElement('div');
-            notification.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white font-medium flex items-center ${
-                type === 'success' ? 'bg-green-600' : 
-                type === 'error' ? 'bg-red-600' : 
-                type === 'info' ? 'bg-blue-600' : 'bg-gray-600'
-            }`;
-            
-            let icon;
-            if (type === 'success') icon = 'check-circle';
-            else if (type === 'error') icon = 'alert-circle';
-            else if (type === 'info') icon = 'info';
-            else icon = 'bell';
-            
-            notification.innerHTML = `
-                <i data-feather="${icon}" class="w-5 h-5 mr-2"></i>
-                ${message}
-            `;
-            
-            document.body.appendChild(notification);
-            feather.replace();
-            
-            // Auto-remove after 5 seconds
-            setTimeout(() => {
-                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                setTimeout(() => {
-                    notification.remove();
-                }, 300);
-            }, 5000);
-        }
-    </script>
+    <div class="glow-ring"></div>
+  </div>
+
+  <script>
+    // >>> تنظیماتت رو اینجا وارد کن <<<
+    const DISCORD_CLIENT_ID = "YOUR_DISCORD_CLIENT_ID"; // ← این‌جا Client ID
+    const REDIRECT_URI = "https://YOUR_USERNAME.github.io/YOUR_REPO/app.html"; // ← مسیر app.html روی پیجز
+    const SCOPES = ["identify"]; // اگر خواستی عضویت سرور را چک کنی، "guilds" را هم اضافه کن.
+
+    document.getElementById("discordBtn").addEventListener("click", () => {
+      const params = new URLSearchParams({
+        client_id: DISCORD_CLIENT_ID,
+        response_type: "token",                 // implicit flow برای SPA
+        redirect_uri: REDIRECT_URI,
+        scope: SCOPES.join(" "),
+        prompt: "consent"
+      });
+      window.location.href = `https://discord.com/oauth2/authorize?${params.toString()}`;
+    });
+  </script>
 </body>
 </html>
