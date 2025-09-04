@@ -5,35 +5,37 @@
 <title>BM Pro - داشبورد</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
 body {
-    margin:0; padding:0;
-    font-family: 'Vazirmatn', sans-serif;
-    background: linear-gradient(135deg,#1f1c2c,#928dab);
-    color:white;
-    overflow-x:hidden;
+  margin:0; padding:0;
+  font-family:'Vazirmatn', sans-serif;
+  background: linear-gradient(135deg,#1f1c2c,#928dab);
+  color:white;
+  overflow-x:hidden;
 }
+
+/* Header */
 header {
-    padding:15px;
-    background: rgba(0,0,0,0.6);
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Orbitron', sans-serif;
-    font-size:1.8rem;
-    letter-spacing:1px;
-    text-shadow: 2px 2px 5px #000;
+  padding:15px;
+  background: rgba(0,0,0,0.6);
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family:'Orbitron', sans-serif;
+  font-size:1.8rem;
+  letter-spacing:1px;
+  text-shadow:2px 2px 5px #000;
 }
-.points {
-    font-weight:bold;
-    font-size:1.3rem;
-}
+.points { font-weight:bold; font-size:1.3rem; }
+
+/* Main content */
 main { padding:20px; }
 .panel { background: rgba(0,0,0,0.5); border-radius:12px; padding:20px; margin-bottom:20px; }
 button.toggle-btn, button { 
-    background: linear-gradient(135deg,#5865F2,#4752c4); 
-    color:white; border:none; padding:12px 20px; 
-    font-size:1rem; border-radius:12px; cursor:pointer; 
-    transition:0.3s; margin:5px 0; box-shadow:0 0 5px #000;
+  background: linear-gradient(135deg,#5865F2,#4752c4); 
+  color:white; border:none; padding:12px 20px; 
+  font-size:1rem; border-radius:12px; cursor:pointer; 
+  transition:0.3s; margin:5px 0; box-shadow:0 0 5px #000;
 }
 button.toggle-btn:hover, button:hover { transform: scale(1.05); box-shadow:0 0 15px #fff; }
 .hidden { display:none; }
@@ -41,24 +43,56 @@ input[type="text"] { padding:8px; border-radius:6px; border:none; width:220px; m
 .shop-item { margin-bottom:15px; display:flex; align-items:center; }
 .shop-item img { width:50px; height:50px; margin-left:10px; border-radius:8px; }
 .server-gif { width:60px; height:60px; margin-left:10px; vertical-align: middle; }
-#userInfo { background:rgba(88,101,242,0.7); padding:15px; border-radius:15px; text-align:center; margin-bottom:15px; box-shadow:0 0 15px #5865F2; }
-#userInfo p { margin:5px; font-size:1.2rem; font-weight:bold; text-shadow:1px 1px 3px #000; }
-#loadingScreen {position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;z-index:9999;}
+
+/* User info gamified */
+#userInfo {
+  background:rgba(88,101,242,0.7);
+  padding:15px; border-radius:15px; text-align:center; margin-bottom:15px;
+  box-shadow:0 0 20px #5865F2, 0 0 40px #7289da;
+  animation: glow 2s infinite alternate;
+}
+#userInfo p { margin:5px; font-size:1.2rem; font-weight:bold; text-shadow:1px 1px 5px #000; }
+
+/* Glow animation */
+@keyframes glow {
+  0% { box-shadow:0 0 20px #5865F2,0 0 40px #7289da; }
+  50% { box-shadow:0 0 25px #ff00ff,0 0 50px #ff69b4; }
+  100% { box-shadow:0 0 20px #5865F2,0 0 40px #7289da; }
+}
+
+/* Loading screen */
+#loadingScreen {
+  position:fixed;
+  top:0; left:0; width:100%; height:100%;
+  background:#000; display:flex; justify-content:center; align-items:center; z-index:9999;
+}
+.loader {
+  font-family:'Orbitron',sans-serif;
+  font-size:2rem;
+  color:#5865F2;
+  letter-spacing:2px;
+  animation: flicker 1.5s infinite alternate;
+}
+@keyframes flicker {
+  0% { text-shadow:0 0 5px #fff,0 0 10px #5865F2,0 0 20px #7289da; }
+  50% { text-shadow:0 0 10px #ff00ff,0 0 20px #ff69b4,0 0 30px #ff00ff; }
+  100% { text-shadow:0 0 5px #fff,0 0 10px #5865F2,0 0 20px #7289da; }
+}
 </style>
 </head>
 <body>
 
+<!-- Loading screen -->
 <div id="loadingScreen">
-<iframe src="https://lottie.host/embed/39bb1a9b-605f-4ce1-9e41-ff1937c076c4/EssE025mz2.lottie" style="width:300px;height:300px;border:none;"></iframe>
+  <span class="loader">Loading...</span>
 </div>
 
 <header>BM Pro <span class="points">امتیاز: <span id="points">0</span></span></header>
 
 <main>
-
 <div id="userInfo">
-<p id="username">در حال بارگذاری...</p>
-<p id="userid">...</p>
+  <p id="username">در حال بارگذاری...</p>
+  <p id="userid">...</p>
 </div>
 
 <!-- اطلاعات کاربر -->
@@ -119,18 +153,13 @@ input[type="text"] { padding:8px; border-radius:6px; border:none; width:220px; m
 </div>
 
 <script>
-const DISCORD_CLIENT_ID="1413174935593156718";
-const REDIRECT_URI="https://madsmart13.github.io/BM_pro/app.html";
-
-// لودینگ
+// لودینگ گیمینگ ۸ ثانیه
 window.addEventListener("load",()=>{
   setTimeout(()=>{document.getElementById("loadingScreen").classList.add("hidden");},8000);
 });
 
-// toggle
+// توابع قبلی بدون تغییر
 function toggleSection(id){document.getElementById(id).classList.toggle('hidden');}
-
-// اطلاعات کاربر
 const fragment=new URLSearchParams(window.location.hash.slice(1));
 const accessToken=fragment.get("access_token");
 if(accessToken){fetch("https://discord.com/api/users/@me",{headers:{Authorization:`Bearer ${accessToken}`}})
@@ -141,51 +170,18 @@ document.getElementById("userid").textContent=user.id;
 document.getElementById("usernameInfo").textContent=user.username+"#"+user.discriminator;
 document.getElementById("useridInfo").textContent=user.id;
 localStorage.setItem("discord_user",JSON.stringify(user));
-});}
-else{const savedUser=localStorage.getItem("discord_user");if(savedUser){const user=JSON.parse(savedUser);
+});}else{const savedUser=localStorage.getItem("discord_user");if(savedUser){const user=JSON.parse(savedUser);
 document.getElementById("username").textContent=user.username+"#"+user.discriminator;
 document.getElementById("userid").textContent=user.id;
 document.getElementById("usernameInfo").textContent=user.username+"#"+user.discriminator;
 document.getElementById("useridInfo").textContent=user.id;}}
-
-// امتیاز
 let points=parseInt(localStorage.getItem("bmpro_points"))||0;
 document.getElementById("points").textContent=points;
-function completeTask(task){
-if(!localStorage.getItem(`bmpro_task_${task}`)){
-points+=10;
-localStorage.setItem("bmpro_points",points);
-localStorage.setItem(`bmpro_task_${task}`,true);
-document.getElementById("points").textContent=points;
-alert("تبریک! ۱۰ امتیاز گرفتید 🎉");
-}else{alert("این تسک رو قبلاً انجام دادید!");}}
-
-// دیسکورد
+function completeTask(task){if(!localStorage.getItem(`bmpro_task_${task}`)){points+=10;localStorage.setItem("bmpro_points",points);localStorage.setItem(`bmpro_task_${task}`,true);document.getElementById("points").textContent=points;alert("تبریک! ۱۰ امتیاز گرفتید 🎉");}else{alert("این تسک رو قبلاً انجام دادید!");}}
 function joinDiscordChannel(){window.open("https://discord.com/invite/kkdDtDcG","_blank");completeTask('join');}
-
-// شماره موبایل
 function showMobileInput(){document.getElementById("mobileInput").classList.remove("hidden");}
-function submitMobile(){
-const mobile=document.getElementById("mobile").value.trim();
-const msg=document.getElementById("mobileMsg");
-if(!/^09\d{9}$/.test(mobile)){msg.textContent="شماره نامعتبر است!";return;}
-msg.textContent="در انتظار تایید ادمین";
-if(!localStorage.getItem('bmpro_task_mobile')){
-points+=10; localStorage.setItem("bmpro_points",points);
-localStorage.setItem('bmpro_task_mobile',true);
-document.getElementById("points").textContent=points;
-}}
-
-// فروشگاه
-function buyItem(id,cost){
-const msg=document.getElementById("shopMsg");
-if(points<cost){msg.textContent="امتیاز کافی نیست!";return;}
-points-=cost;localStorage.setItem("bmpro_points",points);
-document.getElementById("points").textContent=points;
-msg.textContent="در سرور دیسکورد ما در بخش خرید پیام بگذارید";
-}
-
-// سرورها و GIF
+function submitMobile(){const mobile=document.getElementById("mobile").value.trim();const msg=document.getElementById("mobileMsg");if(!/^09\d{9}$/.test(mobile)){msg.textContent="شماره نامعتبر است!";return;}msg.textContent="در انتظار تایید ادمین";if(!localStorage.getItem('bmpro_task_mobile')){points+=10;localStorage.setItem("bmpro_points",points);localStorage.setItem('bmpro_task_mobile',true);document.getElementById("points").textContent=points;}}
+function buyItem(id,cost){const msg=document.getElementById("shopMsg");if(points<cost){msg.textContent="امتیاز کافی نیست!";return;}points-=cost;localStorage.setItem("bmpro_points",points);document.getElementById("points").textContent=points;msg.textContent="در سرور دیسکورد ما در بخش خرید پیام بگذارید";}
 let currentGif=null;
 function clearGif(){const gif=document.getElementById("serverGif");gif.classList.add("hidden");gif.src="";}
 function server1(){clearGif();document.getElementById("serverMsg").textContent="ورود دستی! ای پی سرور: wii1-rFFa.aternos.me:22481";}
