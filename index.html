@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BM Pro - صفحه اصلی</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #1a1a2e;
+            color: #e6e6e6;
+        }
+        .glow {
+            text-shadow: 0 0 10px #4f46e5, 0 0 20px #4f46e5;
+        }
+        .game-card {
+            transition: all 0.3s ease;
+            border: 2px solid #4f46e5;
+            border-radius: 15px;
+            background: rgba(30, 30, 50, 0.7);
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.4);
+        }
+        .pixel-btn {
+            position: relative;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 0;
+            background-color: #4f46e5;
+            box-shadow: 5px 5px 0px #3a3a5e;
+        }
+        .pixel-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0px #3a3a5e;
+        }
+        .pixel-btn:active {
+            transform: translate(5px, 5px);
+            box-shadow: 0px 0px 0px #3a3a5e;
+        }
+        .discord-btn {
+            background-color: #5865F2;
+        }
+        .task-btn {
+            background-color: #10B981;
+        }
+        .info-btn {
+            background-color: #F59E0B;
+        }
+        .score-badge {
+            background: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 100%);
+            border-radius: 50px;
+            padding: 5px 15px;
+            font-weight: bold;
+        }
+        .task-item {
+            background: rgba(40, 40, 60, 0.7);
+            border-left: 4px solid #4f46e5;
+            transition: all 0.3s ease;
+        }
+        .task-item:hover {
+            background: rgba(50, 50, 70, 0.9);
+        }
+        .task-complete {
+            border-left: 4px solid #10B981;
+        }
+        .neon-border {
+            position: relative;
+        }
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #4f46e5, #8b5cf6, #4f46e5);
+            background-size: 200% 200%;
+            z-index: -1;
+            animation: gradient 3s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-12">
+            <h1 class="text-3xl font-bold glow">BM Pro</h1>
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <div class="score-badge flex items-center">
+                    <i data-feather="award" class="ml-2"></i>
+                    <span id="userScore">0</span> امتیاز
+                </div>
+                <button id="logoutBtn" class="pixel-btn bg-red-500 hidden">
+                    <i data-feather="log-out" class="ml-2"></i>
+                    خروج
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content - Login Page -->
+        <main id="loginPage" class="text-center">
+            <div class="max-w-md mx-auto game-card p-8 neon-border" data-aos="zoom-in">
+                <i data-feather="user" class="w-16 h-16 mx-auto text-indigo-500 mb-6"></i>
+                <h2 class="text-2xl font-bold mb-6">به BM Pro خوش آمدید!</h2>
+                <p class="mb-8">برای شروع، لطفا حساب دیسکورد خود را با سیستم ما لینک کنید</p>
+                <button id="discordLoginBtn" class="pixel-btn discord-btn w-full py-3">
+                    <i data-feather="link" class="ml-2"></i>
+                    لینک کردن اکانت دیسکورد
+                </button>
+            </div>
+        </main>
+
+        <!-- Main Content - Dashboard (Hidden by default) -->
+        <main id="dashboardPage" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Tasks Panel -->
+                <div class="game-card p-6 neon-border" data-aos="fade-up">
+                    <div class="flex items-center mb-4">
+                        <i data-feather="check-circle" class="text-green-500 mr-2"></i>
+                        <h3 class="text-xl font-bold">تسک ها</h3>
+                    </div>
+                    <p class="mb-4">تسک های خود را انجام دهید و امتیاز بگیرید!</p>
+                    <button id="tasksBtn" class="pixel-btn task-btn w-full">
+                        <i data-feather="arrow-left" class="ml-2"></i>
+                        ورود به تسک ها
+                    </button>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="game-card p-6 neon-border" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <i data-feather="info" class="text-yellow-500 mr-2"></i>
+                        <h3 class="text-xl font-bold">اطلاعات حساب</h3>
+                    </div>
+                    <p class="mb-4">اطلاعات حساب دیسکورد شما</p>
+                    <button id="infoBtn" class="pixel-btn info-btn w-full">
+                        <i data-feather="arrow-left" class="ml-2"></i>
+                        مشاهده اطلاعات
+                    </button>
+                </div>
+
+                <!-- Discord Panel -->
+                <div class="game-card p-6 neon-border" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <i data-feather="message-square" class="text-blue-500 mr-2"></i>
+                        <h3 class="text-xl font-bold">چنل دیسکورد</h3>
+                    </div>
+                    <p class="mb-4">به چنل دیسکورد ما بپیوندید</p>
+                    <a href="https://discord.gg/kkdDtDcG" target="_blank" class="pixel-btn discord-btn w-full block text-center">
+                        <i data-feather="external-link" class="ml-2"></i>
+                        ورود به چنل
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Tasks Page (Hidden by default) -->
+        <div id="tasksPage" class="hidden">
+            <div class="flex items-center mb-6">
+                <button id="backToDashboardFromTasks" class="pixel-btn mr-4">
+                    <i data-feather="arrow-right" class="mr-2"></i>
+                    بازگشت
+                </button>
+                <h2 class="text-2xl font-bold">تسک ها</h2>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="task-item p-4 rounded">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold">عضویت در چنل دیسکورد</h3>
+                            <p class="text-sm text-gray-400">به چنل دیسکورد ما بپیوندید</p>
+                        </div>
+                        <button class="pixel-btn task-btn complete-btn" data-points="100">
+                            <i data-feather="check" class="ml-2"></i>
+                            تکمیل تسک
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="task-item p-4 rounded">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold">معرفی خود در چنل</h3>
+                            <p class="text-sm text-gray-400">در چنل دیسکورد خود را معرفی کنید</p>
+                        </div>
+                        <button class="pixel-btn task-btn complete-btn" data-points="150">
+                            <i data-feather="check" class="ml-2"></i>
+                            تکمیل تسک
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="task-item p-4 rounded">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold">شرکت در مسابقه هفتگی</h3>
+                            <p class="text-sm text-gray-400">در مسابقه این هفته شرکت کنید</p>
+                        </div>
+                        <button class="pixel-btn task-btn complete-btn" data-points="200">
+                            <i data-feather="check" class="ml-2"></i>
+                            تکمیل تسک
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="task-item p-4 rounded">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold">دعوت دوستان</h3>
+                            <p class="text-sm text-gray-400">دوستان خود را به چنل دعوت کنید</p>
+                        </div>
+                        <button class="pixel-btn task-btn complete-btn" data-points="300">
+                            <i data-feather="check" class="ml-2"></i>
+                            تکمیل تسک
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Page (Hidden by default) -->
+        <div id="infoPage" class="hidden">
+            <div class="flex items-center mb-6">
+                <button id="backToDashboardFromInfo" class="pixel-btn mr-4">
+                    <i data-feather="arrow-right" class="mr-2"></i>
+                    بازگشت
+                </button>
+                <h2 class="text-2xl font-bold">اطلاعات حساب</h2>
+            </div>
+            
+            <div class="game-card p-6 neon-border">
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <i data-feather="user" class="text-indigo-500 mr-3"></i>
+                        <div>
+                            <p class="text-sm text-gray-400">نام کاربری دیسکورد</p>
+                            <p id="discordUsername" class="font-bold">---</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <i data-feather="hash" class="text-indigo-500 mr-3"></i>
+                        <div>
+                            <p class="text-sm text-gray-400">آیدی دیسکورد</p>
+                            <p id="discordId" class="font-bold">---</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <i data-feather="calendar" class="text-indigo-500 mr-3"></i>
+                        <div>
+                            <p class="text-sm text-gray-400">تاریخ عضویت</p>
+                            <p id="joinDate" class="font-bold">---</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        AOS.init();
+        feather.replace();
+        
+        // Simulate user data (in a real app, this would come from backend)
+        let user = null;
+        let userScore = localStorage.getItem('userScore') || 0;
+        
+        // DOM Elements
+        const loginPage = document.getElementById('loginPage');
+        const dashboardPage = document.getElementById('dashboardPage');
+        const tasksPage = document.getElementById('tasksPage');
+        const infoPage = document.getElementById('infoPage');
+        const discordLoginBtn = document.getElementById('discordLoginBtn');
+        const tasksBtn = document.getElementById('tasksBtn');
+        const infoBtn = document.getElementById('infoBtn');
+        const backToDashboardFromTasks = document.getElementById('backToDashboardFromTasks');
+        const backToDashboardFromInfo = document.getElementById('backToDashboardFromInfo');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userScoreElement = document.getElementById('userScore');
+        const discordUsername = document.getElementById('discordUsername');
+        const discordId = document.getElementById('discordId');
+        const joinDate = document.getElementById('joinDate');
+        const completeButtons = document.querySelectorAll('.complete-btn');
+        
+        // Update score display
+        userScoreElement.textContent = userScore;
+        
+        // Check if user is already logged in
+        if (localStorage.getItem('user')) {
+            user = JSON.parse(localStorage.getItem('user'));
+            showDashboard();
+        }
+        
+        // Event Listeners
+        discordLoginBtn.addEventListener('click', () => {
+            // Simulate Discord login (in a real app, this would redirect to Discord OAuth)
+            user = {
+                username: 'User#' + Math.floor(Math.random() * 10000),
+                id: Math.floor(Math.random() * 1000000000),
+                avatar: null,
+                joinedAt: new Date().toLocaleDateString('fa-IR')
+            };
+            
+            localStorage.setItem('user', JSON.stringify(user));
+            showDashboard();
+            
+            // Animate login
+            anime({
+                targets: loginPage,
+                opacity: 0,
+                duration: 500,
+                easing: 'easeInOutQuad',
+                complete: () => {
+                    loginPage.classList.add('hidden');
+                    dashboardPage.classList.remove('hidden');
+                    anime({
+                        targets: dashboardPage,
+                        opacity: [0, 1],
+                        duration: 500,
+                        easing: 'easeInOutQuad'
+                    });
+                }
+            });
+        });
+        
+        tasksBtn.addEventListener('click', () => {
+            showPage(tasksPage, dashboardPage);
+        });
+        
+        infoBtn.addEventListener('click', () => {
+            // Update user info
+            discordUsername.textContent = user.username;
+            discordId.textContent = user.id;
+            joinDate.textContent = user.joinedAt;
+            
+            showPage(infoPage, dashboardPage);
+        });
+        
+        backToDashboardFromTasks.addEventListener('click', () => {
+            showPage(dashboardPage, tasksPage);
+        });
+        
+        backToDashboardFromInfo.addEventListener('click', () => {
+            showPage(dashboardPage, infoPage);
+        });
+        
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('user');
+            user = null;
+            
+            anime({
+                targets: dashboardPage,
+                opacity: 0,
+                duration: 500,
+                easing: 'easeInOutQuad',
+                complete: () => {
+                    dashboardPage.classList.add('hidden');
+                    loginPage.classList.remove('hidden');
+                    anime({
+                        targets: loginPage,
+                        opacity: [0, 1],
+                        duration: 500,
+                        easing: 'easeInOutQuad'
+                    });
+                }
+            });
+        });
+        
+        completeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const points = parseInt(this.getAttribute('data-points'));
+                userScore += points;
+                userScoreElement.textContent = userScore;
+                localStorage.setItem('userScore', userScore);
+                
+                // Mark task as completed
+                const taskItem = this.closest('.task-item');
+                taskItem.classList.add('task-complete');
+                this.innerHTML = '<i data-feather="check-circle" class="ml-2"></i> انجام شد';
+                this.classList.remove('task-btn');
+                this.classList.add('bg-gray-600');
+                this.disabled = true;
+                feather.replace();
+                
+                // Celebration animation
+                anime({
+                    targets: this,
+                    scale: [1, 1.1, 1],
+                    duration: 500,
+                    easing: 'easeInOutQuad'
+                });
+                
+                // Score animation
+                anime({
+                    targets: userScoreElement,
+                    scale: [1, 1.5, 1],
+                    duration: 800,
+                    easing: 'easeInOutQuad'
+                });
+            });
+        });
+        
+        // Helper functions
+        function showDashboard() {
+            loginPage.classList.add('hidden');
+            dashboardPage.classList.remove('hidden');
+            logoutBtn.classList.remove('hidden');
+        }
+        
+        function showPage(pageToShow, pageToHide) {
+            anime({
+                targets: pageToHide,
+                opacity: 0,
+                duration: 300,
+                easing: 'easeInOutQuad',
+                complete: () => {
+                    pageToHide.classList.add('hidden');
+                    pageToShow.classList.remove('hidden');
+                    anime({
+                        targets: pageToShow,
+                        opacity: [0, 1],
+                        duration: 300,
+                        easing: 'easeInOutQuad'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
