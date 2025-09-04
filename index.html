@@ -1,138 +1,63 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BM Pro | لینک دیسکورد</title>
-  <meta name="color-scheme" content="dark">
+  <meta charset="UTF-8">
+  <title>BM Pro - ورود</title>
   <style>
-    :root{
-      --bg1:#080b1a; --bg2:#0d1026; --neon:#6cf0ff; --neon2:#7cffb7; --txt:#e8f1ff; --muted:#95a3c7; --card:#0f1533aa;
-      --accent:#8a7cff; --danger:#ff6b7c; --ok:#7CFF95; --warn:#ffd36c;
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      font-family: 'Vazirmatn', sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;font-family:Vazirmatn,IRANSans,system-ui,Segoe UI,Roboto,sans-serif;color:var(--txt);
-      background: radial-gradient(1200px 800px at 20% -10%, #18224a 0%, rgba(0,0,0,0) 60%),
-                  radial-gradient(1400px 1000px at 120% 30%, #1b2d66 0%, rgba(0,0,0,0) 65%),
-                  linear-gradient(180deg,var(--bg1),var(--bg2));
-      overflow:hidden;
+    .container {
+      text-align: center;
     }
-    .grid{
-      position:relative;min-height:100%;
-      display:grid;place-items:center;padding:40px;
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
     }
-    .logo{
-      position:absolute;top:24px;left:24px;font-weight:800;letter-spacing:.5px;
-      background:linear-gradient(90deg,var(--neon),var(--accent),var(--neon2));
-      -webkit-background-clip:text;background-clip:text;color:transparent;font-size:22px
+    button {
+      background: #5865F2;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    .card{
-      width:min(680px,92vw);padding:28px;border-radius:22px;background:backdrop-filter: blur(8px);
-      background: linear-gradient(180deg,#121936aa,#0f1430aa);
-      border:1px solid #2b3566; box-shadow: 0 10px 30px #0008, inset 0 0 40px #0b1044aa;
-    }
-    .title{font-size:28px;margin:0 0 6px}
-    .subtitle{margin:0 0 24px;color:var(--muted)}
-    .cta{
-      display:flex;gap:14px;flex-wrap:wrap;margin-top:16px
-    }
-    .btn{
-      appearance:none;border:none;cursor:pointer;
-      padding:14px 18px;border-radius:14px;font-weight:700;color:#001427;
-      background:linear-gradient(90deg,var(--neon),var(--accent));
-      box-shadow:0 0 15px #6cf0ff55, 0 0 35px #8a7cff33, inset 0 0 10px #ffffff22;
-      transition: transform .15s ease, box-shadow .15s ease, filter .2s;
-    }
-    .btn:hover{transform:translateY(-2px);filter:saturate(1.1)}
-    .btn:active{transform:translateY(0)}
-    .ghost{
-      background:#101632;border:1px solid #2a3563;color:var(--txt);box-shadow:none
-    }
-    .hero{
-      display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:stretch
-    }
-    @media (max-width:760px){.hero{grid-template-columns:1fr}}
-    .panel{
-      padding:16px;border-radius:16px;background:linear-gradient(180deg,#0f1431aa,#0b0f26aa);
-      border:1px solid #26305d
-    }
-    .tag{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;
-         border:1px solid #2a3563;color:var(--muted);font-size:12px}
-    .bullet{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 12px var(--ok)}
-    .tips{display:grid;gap:10px}
-    .small{font-size:12px;color:var(--muted)}
-    .footer{
-      margin-top:18px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px
-    }
-    a.link{color:var(--neon)}
-    .glow-ring{
-      position:absolute;inset:auto auto -140px -140px;width:360px;height:360px;border-radius:50%;
-      filter:blur(60px);background:radial-gradient(circle at 50% 50%, #6cf0ff44, transparent 60%)
+    button:hover {
+      transform: scale(1.05);
+      background: #4752c4;
     }
   </style>
 </head>
 <body>
-  <div class="grid">
-    <div class="logo">BM Pro — Gaming Manager</div>
-
-    <div class="card">
-      <div class="hero">
-        <div class="panel">
-          <h1 class="title">ورود به BM Pro</h1>
-          <p class="subtitle">اول اکانت دیسکوردت رو لینک کن؛ بعد مستقیم وارد پنل گیمینگ مدیریتی میشی.</p>
-          <div class="tag"><span class="bullet"></span> ورود بدون پسورد — فقط با دیسکورد</div>
-
-          <div class="cta">
-            <button id="discordBtn" class="btn">لینک کردن اکانت دیسکورد</button>
-            <a class="btn ghost" href="https://discord.gg/kkdDtDcG" target="_blank" rel="noopener">چنل ما</a>
-          </div>
-
-          <p class="small" style="margin-top:10px">با کلیک، به دیسکورد هدایت می‌شی تا اجازه بدی اسم و آیدی‌ت رو بخونیم. بعدش به پنل منتقل می‌شی.</p>
-        </div>
-
-        <div class="panel tips">
-          <div>
-            <strong>نکته:</strong>
-            <div class="small">این نسخه روی GitHub Pages بدون بک‌اند کار می‌کند. امتیازها در مرورگر شما ذخیره می‌شود و با هر بار ورود باقی می‌ماند.</div>
-          </div>
-          <div>
-            <strong>تنظیمات لازم</strong>
-            <ul class="small" style="line-height:1.9">
-              <li>در کد زیر، <code>DISCORD_CLIENT_ID</code> را با Client ID اپ دیسکورد خودت عوض کن.</li>
-              <li><code>REDIRECT_URI</code> را آدرس کامل <code>app.html</code> بگذار و در دیسکورد همان را ثبت کن.</li>
-              <li>Scopes: <code>identify</code> (و در صورت نیاز <code>guilds</code>).</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer">
-        <span>© BM Pro</span>
-        <span>حالت گیمینگ • طراحی نئونی</span>
-      </div>
-    </div>
-
-    <div class="glow-ring"></div>
+  <div class="container">
+    <h1>به BM Pro خوش آمدید</h1>
+    <button onclick="loginWithDiscord()">لینک کردن اکانت دیسکورد</button>
   </div>
 
   <script>
-    // >>> تنظیماتت رو اینجا وارد کن <<<
-    const DISCORD_CLIENT_ID = "YOUR_DISCORD_CLIENT_ID"; // ← این‌جا Client ID
-    const REDIRECT_URI = "https://YOUR_USERNAME.github.io/YOUR_REPO/app.html"; // ← مسیر app.html روی پیجز
-    const SCOPES = ["identify"]; // اگر خواستی عضویت سرور را چک کنی، "guilds" را هم اضافه کن.
+    const DISCORD_CLIENT_ID = "YOUR_DISCORD_CLIENT_ID"; // اینجا Client ID واقعی‌تو بذار
+    const REDIRECT_URI = "https://madsmart13.github.io/BM_pro/app.html";
+    const AUTH_ENDPOINT = "https://discord.com/api/oauth2/authorize";
 
-    document.getElementById("discordBtn").addEventListener("click", () => {
+    function loginWithDiscord() {
       const params = new URLSearchParams({
         client_id: DISCORD_CLIENT_ID,
-        response_type: "token",                 // implicit flow برای SPA
         redirect_uri: REDIRECT_URI,
-        scope: SCOPES.join(" "),
-        prompt: "consent"
+        response_type: "token",
+        scope: "identify"
       });
-      window.location.href = `https://discord.com/oauth2/authorize?${params.toString()}`;
-    });
+      window.location.href = `${AUTH_ENDPOINT}?${params.toString()}`;
+    }
   </script>
 </body>
 </html>
