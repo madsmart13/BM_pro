@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BM Pro | پنل گیمینگ</title>
+  <meta name="color-scheme" content="dark">
+  <style>
+    :root{
+      --bg1:#070a18; --bg2:#0a0f26; --panel:#0f1533aa; --br:#2b3566; --txt:#e9f1ff; --muted:#98a6d1;
+      --neon:#6cf0ff; --accent:#8a7cff; --neon2:#7cffb7; --danger:#ff6b7c; --ok:#7CFF95; --warn:#ffd36c;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Vazirmatn,IRANSans,system-ui,Segoe UI,Roboto,sans-serif;color:var(--txt);
+      background: radial-gradient(1400px 1000px at 15% -10%, #1a2550 0%, transparent 60%),
+                  radial-gradient(1400px 800px at 120% 20%, #1b2d66 0%, transparent 65%),
+                  linear-gradient(180deg,var(--bg1),var(--bg2));
+    }
+    header{
+      position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#0b122d, #0a0f2680);
+      backdrop-filter: blur(8px);border-bottom:1px solid #23305c;
+    }
+    .bar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;
+    }
+    .brand{font-weight:900;letter-spacing:.4px;background:linear-gradient(90deg,var(--neon),var(--accent),var(--neon2));
+      -webkit-background-clip:text;background-clip:text;color:transparent}
+    .points{
+      display:flex;align-items:center;gap:10px;border:1px solid #2a3563;border-radius:999px;padding:8px 12px;background:#0d1433aa
+    }
+    .points .v{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 14px var(--ok)}
+    .pts{font-weight:800}
+    main{display:grid;grid-template-columns:240px 1fr;gap:18px;padding:18px}
+    @media (max-width:920px){main{grid-template-columns:1fr}}
+    nav{
+      position:sticky;top:68px;align-self:start;display:flex;flex-direction:column;gap:10px
+    }
+    .btn{
+      appearance:none;border:none;cursor:pointer;text-align:center;padding:12px 14px;border-radius:12px;
+      background:#101633;border:1px solid #27315f;color:var(--txt);font-weight:700;transition:.15s;
+      box-shadow:0 0 0 #0000, inset 0 0 10px #0000;
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 20px #0004}
+    .btn.primary{
+      background:linear-gradient(90deg,var(--neon),var(--accent));
+      color:#061423; box-shadow:0 0 20px #6cf0ff55, inset 0 0 10px #ffffff22;
+    }
+    .panel{
+      background:linear-gradient(180deg,#11183baa,#0b1030aa);border:1px solid #27325f;border-radius:16px;
+      padding:16px;box-shadow:0 10px 30px #0006, inset 0 0 30px #0a0f42aa;
+    }
+    .wrap{display:grid;gap:14px}
+    .section-title{margin:0 0 10px}
+    .tasks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    @media (max-width:820px){.tasks{grid-template-columns:1fr}}
+    .task{
+      padding:14px;border:1px solid #2a3563;border-radius:14px;background:#0c1333aa;display:grid;gap:8px
+    }
+    .task .meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}
+    .badge{padding:4px 8px;border-radius:999px;border:1px solid #2a3563}
+    .badge.ok{border-color:#2b9d69;color:#c9ffdf}
+    .badge.warn{border-color:#c7a246;color:#ffeab8}
+    .badge.pending{border-color:#6d6aff;color:#d5d3ff}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:720px){.info-grid{grid-template-columns:1fr}}
+    .kv{padding:12px;border-radius:12px;background:#0f1330;border:1px solid #27315f;color:var(--muted)}
+    .kv b{color:var(--txt)}
+    .avatar{width:56px;height:56px;border-radius:50%;border:2px solid #2b3566;box-shadow:0 0 16px #6cf0ff33}
+    .row{display:flex;align-items:center;gap:10px}
+    .small{font-size:12px;color:var(--muted)}
+    .right{justify-content:flex-end}
+    .mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}
+    .center{display:flex;justify-content:center;align-items:center}
+    a.link{color:var(--neon)}
+  </style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="brand">BM Pro — Gaming Manager</div>
+    <div class="points">
+      <div class="v"></div>
+      <span>امتیاز:</span>
+      <span class="pts" id="points">0</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <nav>
+    <button class="btn primary" data-view="tasks">تسک‌ها</button>
+    <button class="btn" data-view="info">اطلاعات</button>
+    <a class="btn" href="https://discord.gg/kkdDtDcG" target="_blank" rel="noopener">چنل ما</a>
+    <button id="logout" class="btn" title="خروج امن">خروج</button>
+  </nav>
+
+  <section id="view" class="wrap">
+    <!-- محتوا اینجا با JS عوض می‌شود -->
+  </section>
+</main>
+
+<script>
+  // ---- config (آدرس‌ها را مطابق دیپلوی خودت ست کن)
+  const REDIRECT_URI = "https://YOUR_USERNAME.github.io/YOUR_REPO/app.html";
+
+  // ابزارک‌های ذخیره‌سازی بر اساس Discord ID تا امتیازها برای هر کاربر بماند
+  const store = {
+    key(id){ return `bmpro_${id}`; },
+    load(id){
+      const raw = localStorage.getItem(this.key(id));
+      return raw? JSON.parse(raw): null;
+    },
+    save(id, data){
+      localStorage.setItem(this.key(id), JSON.stringify(data));
+    }
+  };
+
+  // پارس توکن از URL fragment (#access_token=...)
+  function parseHash(){
+    const h = new URLSearchParams(location.hash.slice(1));
+    if(h.get("access_token")) return { token: h.get("access_token"), tokenType: h.get("token_type") || "Bearer", scope: h.get("scope")||"" };
+    return null;
+  }
+
+  // اگر توکن نیست ولی قبلاً لاگین بودیم، از کش ادامه بده
+  let session = JSON.parse(localStorage.getItem("bmpro_session")||"null");
+
+  async function fetchDiscordMe(token){
+    const res = await fetch("https://discord.com/api/users/@me", {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    if(!res.ok) throw new Error("DISCORD_API_ERROR");
+    return res.json();
+  }
+
+  function userAvatarURL(user){
+    if(!user.avatar) return `https://cdn.discordapp.com/embed/avatars/${(+user.discriminator||0)%5}.png`;
+    const fmt = user.avatar.startsWith("a_") ? "gif" : "png";
+    return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${fmt}?size=128`;
+  }
+
+  function defaultProfile(user){
+    return {
+      id: user.id,
+      username: user.username,
+      global_name: user.global_name || user.username,
+      avatar: userAvatarURL(user),
+      points: 0,
+      lastCheckin: null,
+      tasks: {
+        joinChannel: { done:false, points:50 },
+        phone: { status:"none", phone:"", points:100 }, // points بعد از تایید ادمین
+        notifications: { done:false, points:30 },
+        profile: { done:false, points:20 },
+        explore: { done:false, points:15 }
+      }
+    };
+  }
+
+  function setPointsDisplay(p){ document.getElementById("points").textContent = p; }
+  function addPoints(user, amount, note=""){
+    user.points += amount;
+    setPointsDisplay(user.points);
+    store.save(user.id, user);
+    toast(`+${amount} امتیاز ${note? "• "+note:""}`);
+  }
+
+  function toast(msg){
+    const n = document.createElement("div");
+    n.textContent = msg;
+    n.style.cssText = "position:fixed;bottom:20px;right:20px;background:#0f173a;border:1px solid #2a3563;padding:10px 14px;border-radius:10px;box-shadow:0 10px 20px #0006;color:#e9f1ff;z-index:1000";
+    document.body.appendChild(n);
+    setTimeout(()=>{ n.remove(); }, 2500);
+  }
+
+  function render(view){
+    const root = document.getElementById("view");
+    root.innerHTML = "";
+    if(view==="info") renderInfo(root);
+    else renderTasks(root);
+    Array.from(document.querySelectorAll("nav .btn")).forEach(b=>{
+      b.classList.toggle("primary", b.dataset.view===view);
+    });
+  }
+
+  function renderInfo(root){
+    const u = state.user;
+    const box = document.createElement("div");
+    box.className = "panel";
+    box.innerHTML = `
+      <h2 class="section-title">اطلاعات کاربر</h2>
+      <div class="info-grid">
+        <div class="kv">
+          <div class="row">
+            <img class="avatar" src="${u.avatar}" alt="">
+            <div>
+              <div><b>${escapeHtml(u.global_name)}</b></div>
+              <div class="small">${escapeHtml(u.username)}</div>
+            </div>
+          </div>
+        </div>
+        <div class="kv">
+          <div>آیدی دیسکورد:</div>
+          <div><b>${u.id}</b></div>
+          <div class="small mt8">برای پشتیبانی یا جوایز از این آیدی استفاده می‌شود.</div>
+        </div>
+      </div>
+      <div class="mt16 row right">
+        <a class="btn" href="https://discord.gg/kkdDtDcG" target="_blank" rel="noopener">ورود به چنل ما</a>
+      </div>
+    `;
+    root.appendChild(box);
+  }
+
+  function renderTasks(root){
+    const u = state.user;
+    const wrap = document.createElement("div");
+    wrap.className = "panel";
+    wrap.innerHTML = `<h2 class="section-title">تسک‌ها</h2>`;
+    const grid = document.createElement("div");
+    grid.className = "tasks";
+
+    // تسک 1: چک‌این روزانه
+    const daily = document.createElement("div");
+    daily.className = "task";
+    const last = u.lastCheckin;
+    const canCheckin = !last || (new Date(last).toDateString() !== new Date().toDateString());
+    daily.innerHTML = `
+      <div class="meta"><span>چک‌این روزانه</span><span class="badge ${canCheckin?"ok":"warn"}">${canCheckin?"آماده":"ثبت شده امروز"}</span></div>
+      <div class="small">هر روز وارد شو و امتیاز بگیر.</div>
+      <div class="row right"><button class="btn ${canCheckin?"primary":""}" ${canCheckin?"":"disabled"}>ثبت حضور امروز</button></div>
+    `;
+    daily.querySelector("button")?.addEventListener("click", ()=>{
+      u.lastCheckin = new Date().toISOString();
+      addPoints(u, 25, "چک‌این روزانه");
+      store.save(u.id, u);
+      render("tasks");
+    });
+    grid.appendChild(daily);
+
+    // تسک 2: ورود به چنل دیسکورد
+    const join = document.createElement("div");
+    join.className = "task";
+    join.innerHTML = `
+      <div class="meta"><span>عضویت در چنل دیسکورد</span><span class="badge ${u.tasks.joinChannel.done?"ok":"pending"}">${u.tasks.joinChannel.done?"تأیید شد":"در انتظار تأیید"}</span></div>
+      <div class="small">روی لینک بزن و عضو شو، بعد «تأیید عضویت» رو بزن.</div>
+      <div class="row" style="gap:8px">
+        <a class="btn" href="https://discord.gg/kkdDtDcG" target="_blank" rel="noopener">چنل ما</a>
+        <button class="btn primary" id="verifyJoin">تأیید عضویت</button>
+      </div>
+    `;
+    join.querySelector("#verifyJoin").addEventListener("click", ()=>{
+      if(!u.tasks.joinChannel.done){
+        u.tasks.joinChannel.done = true;
+        addPoints(u, u.tasks.joinChannel.points, "عضویت در چنل");
+        store.save(u.id, u);
+        render("tasks");
+      }
+    });
+    grid.appendChild(join);
+
+    // تسک 3: لاگین کامل (شماره موبایل)
+    const phone = document.createElement("div");
+    phone.className = "task";
+    const p = u.tasks.phone;
+    phone.innerHTML = `
+      <div class="meta"><span>لاگین کامل (شماره موبایل)</span>
+        <span class="badge ${p.status==="approved"?"ok": p.status==="pending"?"pending":"warn"}">
+          ${p.status==="approved"?"تأیید شد": p.status==="pending"?"در انتظار تأیید توسط ادمین":"نیاز به اقدام"}
+        </span>
+      </div>
+      <label class="small">شماره موبایل:</label>
+      <div class="row">
+        <input id="phoneInput" dir="ltr" value="${escapeHtml(p.phone)}" placeholder="09xxxxxxxxx"
+          style="flex:1;background:#0b1133;color:var(--txt);border:1px solid #2a3563;border-radius:10px;padding:10px" />
+        <button class="btn primary" id="savePhone">${p.status==="none"?"ارسال":"ویرایش"}</button>
+      </div>
+      <div class="small mt8">پس از بررسی ادمین، امتیاز (${p.points}) اضافه می‌شود.</div>
+    `;
+    phone.querySelector("#savePhone").addEventListener("click", ()=>{
+      const val = phone.querySelector("#phoneInput").value.trim();
+      if(!/^0\d{9,10}$/.test(val)){ alert("شماره معتبر نیست."); return; }
+      p.phone = val; p.status = "pending";
+      store.save(u.id, u);
+      toast("شماره ثبت شد — در انتظار تأیید ادمین");
+      render("tasks");
+    });
+    grid.appendChild(phone);
+
+    // تسک 4: فعال‌کردن نوتیفیکیشن
+    const notif = document.createElement("div");
+    notif.className = "task";
+    notif.innerHTML = `
+      <div class="meta"><span>فعال‌سازی اعلان‌ها</span><span class="badge ${u.tasks.notifications.done?"ok":"warn"}">${u.tasks.notifications.done?"فعال":"غیرفعال"}</span></div>
+      <div class="small">اجازه‌ی اعلان مرورگر را بده تا اخبار و جوایز را از دست ندهی.</div>
+      <div class="row right"><button class="btn primary" id="enableNotif">فعال‌سازی</button></div>
+    `;
+    notif.querySelector("#enableNotif").addEventListener("click", async ()=>{
+      try{
+        const perm = await Notification.requestPermission();
+        if(perm==="granted" && !u.tasks.notifications.done){
+          u.tasks.notifications.done = true;
+          addPoints(u, u.tasks.notifications.points, "فعال‌سازی اعلان‌ها");
+          store.save(u.id, u);
+          new Notification("BM Pro", { body:"اعلان‌ها فعال شد!" });
+          render("tasks");
+        }else if(perm!=="granted"){ alert("اجازه اعلان داده نشد."); }
+      }catch(e){ alert("مرورگر از اعلان پشتیبانی نمی‌کند."); }
+    });
+    grid.appendChild(notif);
+
+    // تسک 5: تکمیل پروفایل
+    const profile = document.createElement("div");
+    profile.className = "task";
+    profile.innerHTML = `
+      <div class="meta"><span>تکمیل پروفایل</span><span class="badge ${u.tasks.profile.done?"ok":"warn"}">${u.tasks.profile.done?"کامل شد":"در انتظار"}</span></div>
+      <div class="small">آواتار و نام شما از دیسکورد گرفته شده. برای سینک مجدد بزن.</div>
+      <div class="row right"><button class="btn" id="refreshMe">به‌روزرسانی از دیسکورد</button></div>
+    `;
+    profile.querySelector("#refreshMe").addEventListener("click", async ()=>{
+      if(!session?.token) { alert("برای سینک مجدد، دوباره از دیسکورد وارد شوید."); return; }
+      try{
+        const me = await fetchDiscordMe(session.token);
+        state.user.username = me.username;
+        state.user.global_name = me.global_name || me.username;
+        state.user.avatar = userAvatarURL(me);
+        if(!state.user.tasks.profile.done){
+          state.user.tasks.profile.done = true;
+          addPoints(state.user, state.user.tasks.profile.points, "تکمیل پروفایل");
+        }
+        store.save(state.user.id, state.user);
+        render("tasks");
+      }catch(e){ alert("خطا در دریافت اطلاعات از دیسکورد."); }
+    });
+    grid.appendChild(profile);
+
+    // تسک 6: اکتشاف پنل (دلخواه)
+    const explore = document.createElement("div");
+    explore.className = "task";
+    explore.innerHTML = `
+      <div class="meta"><span>اکتشاف پنل</span><span class="badge ${u.tasks.explore.done?"ok":"warn"}">${u.tasks.explore.done?"انجام شد":"بازدید کن"}</span></div>
+      <div class="small">بین بخش‌ها جابه‌جا شو و امکانات را ببین.</div>
+      <div class="row right"><button class="btn" id="markExplore">من دیدم!</button></div>
+    `;
+    explore.querySelector("#markExplore").addEventListener("click", ()=>{
+      if(!u.tasks.explore.done){
+        u.tasks.explore.done = true;
+        addPoints(u, u.tasks.explore.points, "اکتشاف پنل");
+        store.save(u.id, u);
+        render("tasks");
+      }
+    });
+    grid.appendChild(explore);
+
+    wrap.appendChild(grid);
+    root.appendChild(wrap);
+  }
+
+  function escapeHtml(s){ return String(s??"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])); }
+
+  // مسیریابی ساده
+  document.querySelectorAll("nav [data-view]").forEach(btn=>{
+    btn.addEventListener("click", ()=> render(btn.dataset.view));
+  });
+
+  // خروج
+  document.getElementById("logout").addEventListener("click", ()=>{
+    if(confirm("از حساب خارج می‌شوی؟")){
+      localStorage.removeItem("bmpro_session");
+      location.href = REDIRECT_URI.replace(/app\.html.*$/,"index.html");
+    }
+  });
+
+  // حالت برنامه
+  const state = { user:null };
+
+  // آغاز: تلاش برای گرفتن توکن از URL یا استفاده از نشست قبلی
+  (async function init(){
+    try{
+      const h = parseHash();
+      if(h?.token){
+        // نشست جدید
+        const me = await fetchDiscordMe(h.token);
+        session = { token:h.token, tokenType:h.tokenType, scope:h.scope, me:{ id:me.id } };
+        localStorage.setItem("bmpro_session", JSON.stringify(session));
+        // پاک‌کردن fragment از URL
+        history.replaceState(null,"",location.pathname+location.search);
+        await afterLogin(me);
+      } else if(session?.token){
+        // نشست قبلی
+        const cached = JSON.parse(localStorage.getItem(store.key(session.me.id))||"null");
+        if(cached){
+          state.user = cached;
+          setPointsDisplay(state.user.points);
+          render("tasks");
+        }else{
+          // تلاش برای گرفتن اطلاعات کاربر
+          const me = await fetchDiscordMe(session.token);
+          await afterLogin(me);
+        }
+      } else {
+        // اگر نه توکن و نه نشست؛ برگرد به صفحه ورود
+        location.href = REDIRECT_URI.replace(/app\.html.*$/,"index.html");
+      }
+    }catch(e){
+      alert("ورود با دیسکورد با مشکل مواجه شد. دوباره تلاش کنید.");
+      location.href = REDIRECT_URI.replace(/app\.html.*$/,"index.html");
+    }
+  })();
+
+  async function afterLogin(me){
+    const cached = store.load(me.id);
+    state.user = cached || defaultProfile(me);
+    setPointsDisplay(state.user.points);
+    store.save(state.user.id, state.user);
+    render("tasks");
+  }
+</script>
+</body>
+</html>
