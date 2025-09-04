@@ -12,9 +12,15 @@ body {
   background: linear-gradient(135deg,#1f1c2c,#928dab);
   color:white;
   overflow-x:hidden;
+  animation: pageFade 1.5s ease-in;
 }
 
-/* Header با افکت ورود */
+/* افکت ورود */
+@keyframes pageFade {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
 header {
   padding:15px;
   background: rgba(0,0,0,0.6);
@@ -25,17 +31,10 @@ header {
   font-size:1.8rem;
   letter-spacing:1px;
   text-shadow:2px 2px 5px #000;
-  animation: headerGlow 2s ease-in-out;
-}
-@keyframes headerGlow {
-  0% { box-shadow:0 0 0 #5865F2; }
-  50% { box-shadow:0 0 20px #ff00ff,0 0 40px #ff69b4; }
-  100% { box-shadow:0 0 0 #5865F2; }
 }
 
 .points { font-weight:bold; font-size:1.3rem; }
 
-/* Main content */
 main { padding:20px; }
 .panel { background: rgba(0,0,0,0.5); border-radius:12px; padding:20px; margin-bottom:20px; }
 button.toggle-btn, button { 
@@ -56,24 +55,16 @@ input[type="text"] { padding:8px; border-radius:6px; border:none; width:220px; m
   background:rgba(88,101,242,0.7);
   padding:15px; border-radius:15px; text-align:center; margin-bottom:15px;
   box-shadow:0 0 20px #5865F2, 0 0 40px #7289da;
-  animation: glow 2s infinite alternate;
 }
 #userInfo p { margin:5px; font-size:1.2rem; font-weight:bold; text-shadow:1px 1px 5px #000; }
 
-/* Glow animation */
-@keyframes glow {
-  0% { box-shadow:0 0 20px #5865F2,0 0 40px #7289da; }
-  50% { box-shadow:0 0 25px #ff00ff,0 0 50px #ff69b4; }
-  100% { box-shadow:0 0 20px #5865F2,0 0 40px #7289da; }
-}
-
 /* گردونه */
 #wheelSection { margin-top:20px; text-align:center; }
-#wheel { width:200px; height:200px; border-radius:50%; border:8px solid #5865F2; margin:20px auto; position:relative; overflow:hidden; box-shadow:0 0 20px #7289da; }
-#wheel div { position:absolute; width:100%; height:100%; display:flex; justify-content:center; align-items:center; font-weight:bold; font-size:1.2rem; text-shadow:1px 1px 4px #000; }
+#wheel { width:200px; height:200px; border-radius:50%; border:8px solid #5865F2; margin:20px auto; position:relative; overflow:hidden; box-shadow:0 0 20px #7289da; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1.2rem; text-shadow:1px 1px 4px #000;}
 #wheelBtn { margin-top:15px; padding:12px 20px; border:none; border-radius:12px; font-size:1rem; cursor:pointer; background: linear-gradient(135deg,#ff00ff,#ff69b4); color:white; box-shadow:0 0 10px #ff69b4; transition:0.3s;}
 #wheelBtn:hover { transform:scale(1.05); box-shadow:0 0 25px #ff00ff,0 0 40px #ff69b4; }
 #wheelMsg { margin-top:10px; font-weight:bold; color:#ff0; text-shadow:1px 1px 3px #000; }
+
 </style>
 </head>
 <body>
@@ -128,19 +119,27 @@ input[type="text"] { padding:8px; border-radius:6px; border:none; width:220px; m
 <div class="panel">
   <button class="toggle-btn" onclick="toggleSection('wheelSection')">گردونه</button>
   <div id="wheelSection" class="hidden">
-    <div id="wheel"></div>
+    <div id="wheel">گردونه</div>
     <button id="wheelBtn" onclick="spinWheel()">چرخش گردونه</button>
     <p id="wheelMsg"></p>
   </div>
 </div>
 
 <script>
-// توابع اصلی بدون تغییر
+// فعالسازی دکمه ها
 function toggleSection(id){document.getElementById(id).classList.toggle('hidden');}
+
+// اطلاعات کاربر و امتیاز
 let points=parseInt(localStorage.getItem("bmpro_points"))||0;
 document.getElementById("points").textContent=points;
+let username="کاربر نمونه";
+let userid="123456789";
+document.getElementById("username").textContent=username;
+document.getElementById("userid").textContent=userid;
+document.getElementById("usernameInfo").textContent=username;
+document.getElementById("useridInfo").textContent=userid;
 
-// گردونه
+// توابع گردونه
 const wheelItems = [
   {text:"5 امتیاز", points:5, chance:0.59},
   {text:"30 امتیاز", points:30, chance:0.3},
@@ -148,6 +147,7 @@ const wheelItems = [
   {text:"پوچ", points:0, chance:0.89},
   {text:"150 امتیاز", points:150, chance:0.01}
 ];
+
 function spinWheel() {
   const lastSpin=localStorage.getItem("bmpro_wheel_last");
   const now=Date.now();
@@ -161,7 +161,6 @@ function spinWheel() {
     if(r<=acc){chosen=item; break;}
   }
   
-  // نمایش افکت چرخش ساده
   const wheel=document.getElementById("wheel");
   wheel.textContent="در حال چرخش...";
   setTimeout(()=>{
@@ -174,8 +173,8 @@ function spinWheel() {
   },2000);
 }
 
-// سایر توابع از جمله completeTask، joinDiscordChannel، showMobileInput، submitMobile، buyItem، server1-4 و غیره بدون تغییر باقی می‌مانند
-</script>
+// سایر توابع مثل completeTask، joinDiscordChannel، showMobileInput، submitMobile، buyItem، server1-4 بدون تغییر باقی می‌مانند
 
+</script>
 </body>
 </html>
