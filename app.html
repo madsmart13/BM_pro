@@ -4,85 +4,60 @@
 <meta charset="UTF-8">
 <title>BM Pro - داشبورد</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
-
-body {
-  margin:0; padding:0;
-  font-family:'Vazirmatn', sans-serif;
-  background: linear-gradient(135deg,#1f1c2c,#928dab);
-  color:white;
-  overflow-x:hidden;
-  animation: pageFade 1.5s ease-in;
-}
-
-/* افکت ورود */
-@keyframes pageFade {
-  from {opacity:0;}
-  to {opacity:1;}
-}
-
-header {
-  padding:15px;
-  background: rgba(0,0,0,0.6);
-  display:flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family:'Orbitron', sans-serif;
-  font-size:1.8rem;
-  letter-spacing:1px;
-  text-shadow:2px 2px 5px #000;
-}
-
-.points { font-weight:bold; font-size:1.3rem; }
-
-main { padding:20px; }
-.panel { background: rgba(0,0,0,0.5); border-radius:12px; padding:20px; margin-bottom:20px; }
-button.toggle-btn, button { 
-  background: linear-gradient(135deg,#5865F2,#4752c4); 
-  color:white; border:none; padding:12px 20px; 
-  font-size:1rem; border-radius:12px; cursor:pointer; 
-  transition:0.3s; margin:5px 0; box-shadow:0 0 5px #000;
-}
-button.toggle-btn:hover, button:hover { transform: scale(1.05); box-shadow:0 0 15px #fff; }
-.hidden { display:none; }
-input[type="text"] { padding:8px; border-radius:6px; border:none; width:220px; margin-right:10px; }
-.shop-item { margin-bottom:15px; display:flex; align-items:center; }
-.shop-item img { width:50px; height:50px; margin-left:10px; border-radius:8px; }
-.server-gif { width:60px; height:60px; margin-left:10px; vertical-align: middle; }
-
-/* User info gamified */
-#userInfo {
-  background:rgba(88,101,242,0.7);
-  padding:15px; border-radius:15px; text-align:center; margin-bottom:15px;
-  box-shadow:0 0 20px #5865F2, 0 0 40px #7289da;
-}
-#userInfo p { margin:5px; font-size:1.2rem; font-weight:bold; text-shadow:1px 1px 5px #000; }
-
-/* گردونه */
-#wheelSection { margin-top:20px; text-align:center; }
-#wheel { width:200px; height:200px; border-radius:50%; border:8px solid #5865F2; margin:20px auto; position:relative; overflow:hidden; box-shadow:0 0 20px #7289da; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1.2rem; text-shadow:1px 1px 4px #000;}
-#wheelBtn { margin-top:15px; padding:12px 20px; border:none; border-radius:12px; font-size:1rem; cursor:pointer; background: linear-gradient(135deg,#ff00ff,#ff69b4); color:white; box-shadow:0 0 10px #ff69b4; transition:0.3s;}
-#wheelBtn:hover { transform:scale(1.05); box-shadow:0 0 25px #ff00ff,0 0 40px #ff69b4; }
-#wheelMsg { margin-top:10px; font-weight:bold; color:#ff0; text-shadow:1px 1px 3px #000; }
-
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    font-family: 'Vazirmatn', sans-serif;
+    color: white;
+  }
+  header {
+    padding: 15px;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .points {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  main { padding: 20px; }
+  .panel { background: rgba(0,0,0,0.5); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+  button.toggle-btn, button { 
+    background: linear-gradient(135deg,#5865F2,#4752c4); 
+    color: white; 
+    border: none; 
+    padding: 12px 20px; 
+    font-size: 1rem; 
+    border-radius: 12px; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    margin: 5px 0;
+  }
+  button.toggle-btn:hover, button:hover { transform: scale(1.05); box-shadow: 0 0 10px #fff; }
+  .hidden { display: none; }
+  input[type="text"] { padding: 8px; border-radius: 6px; border: none; width: 220px; margin-right: 10px; }
+  .shop-item { margin-bottom: 15px; display: flex; align-items: center; }
+  .shop-item img { width: 50px; height: 50px; margin-left: 10px; border-radius: 8px; }
+  .server-gif { width: 60px; height: 60px; margin-left: 10px; vertical-align: middle; }
 </style>
 </head>
 <body>
 
-<header>BM Pro <span class="points">امتیاز: <span id="points">0</span></span></header>
+<header>
+  <h2>BM Pro - داشبورد</h2>
+  <div class="points">امتیاز: <span id="points">0</span></div>
+</header>
 
 <main>
-<div id="userInfo">
-  <p id="username">در حال بارگذاری...</p>
-  <p id="userid">...</p>
-</div>
 
 <!-- اطلاعات کاربر -->
 <div class="panel">
   <button class="toggle-btn" onclick="toggleSection('info')">نمایش اطلاعات کاربر</button>
   <div id="info" class="hidden">
-    <p>نام: <span id="usernameInfo"></span></p>
-    <p>Discord ID: <span id="useridInfo"></span></p>
+    <p>نام: <span id="username">در حال بارگذاری...</span></p>
+    <p>Discord ID: <span id="userid">...</span></p>
   </div>
 </div>
 
@@ -114,67 +89,145 @@ input[type="text"] { padding:8px; border-radius:6px; border:none; width:220px; m
     <p id="shopMsg"></p>
   </div>
 </div>
-
-<!-- گردونه -->
+<!-- بعد از بخش فروشگاه و قبل از سرورها اضافه کنید -->
 <div class="panel">
   <button class="toggle-btn" onclick="toggleSection('wheelSection')">گردونه</button>
   <div id="wheelSection" class="hidden">
-    <div id="wheel">گردونه</div>
-    <button id="wheelBtn" onclick="spinWheel()">چرخش گردونه</button>
-    <p id="wheelMsg"></p>
+    <div id="wheelContainer" style="width:300px; height:300px; margin:20px auto; position:relative; border-radius:50%; border:8px solid #5865F2; overflow:hidden; box-shadow:0 0 30px #7289da;">
+      <div id="wheel" style="width:100%; height:100%; border-radius:50%; transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);"></div>
+    </div>
+    <button id="wheelBtn" onclick="spinWheel()" style="margin-top:15px; padding:12px 20px; border:none; border-radius:12px; font-size:1rem; cursor:pointer; background: linear-gradient(135deg,#ff00ff,#ff69b4); color:white; box-shadow:0 0 10px #ff69b4; transition:0.3s;">چرخش گردونه</button>
+    <p id="wheelMsg" style="margin-top:10px; font-weight:bold; color:#ff0; text-shadow:1px 1px 3px #000;"></p>
   </div>
 </div>
 
 <script>
-// فعالسازی دکمه ها
-function toggleSection(id){document.getElementById(id).classList.toggle('hidden');}
-
-// اطلاعات کاربر و امتیاز
-let points=parseInt(localStorage.getItem("bmpro_points"))||0;
-document.getElementById("points").textContent=points;
-let username="کاربر نمونه";
-let userid="123456789";
-document.getElementById("username").textContent=username;
-document.getElementById("userid").textContent=userid;
-document.getElementById("usernameInfo").textContent=username;
-document.getElementById("useridInfo").textContent=userid;
-
-// توابع گردونه
+// گردونه گرافیکی
 const wheelItems = [
-  {text:"5 امتیاز", points:5, chance:0.59},
-  {text:"30 امتیاز", points:30, chance:0.3},
-  {text:"60 امتیاز", points:60, chance:0.2},
-  {text:"پوچ", points:0, chance:0.89},
-  {text:"150 امتیاز", points:150, chance:0.01}
+  {text:"5 امتیاز", points:5, chance:0.59, color:"#ff0099"},
+  {text:"30 امتیاز", points:30, chance:0.3, color:"#ffcc00"},
+  {text:"60 امتیاز", points:60, chance:0.2, color:"#00ff99"},
+  {text:"پوچ", points:0, chance:0.89, color:"#555555"},
+  {text:"150 امتیاز", points:150, chance:0.01, color:"#ff3300"}
 ];
 
-function spinWheel() {
+const wheel=document.getElementById("wheel");
+
+// رسم گردونه
+function drawWheel(){
+  wheel.innerHTML="";
+  const total=wheelItems.length;
+  for(let i=0;i<total;i++){
+    const item=wheelItems[i];
+    const div=document.createElement("div");
+    div.style.position="absolute";
+    div.style.width="50%";
+    div.style.height="50%";
+    div.style.transformOrigin="100% 100%";
+    div.style.textAlign="right";
+    div.style.paddingRight="10px";
+    div.style.fontWeight="bold";
+    div.style.fontSize="1.1rem";
+    div.style.textShadow="1px 1px 3px #000";
+    div.style.transform=`rotate(${i*(360/total)}deg)`;
+    div.style.backgroundColor=item.color;
+    div.style.borderTopRightRadius="100%";
+    div.textContent=item.text;
+    wheel.appendChild(div);
+  }
+}
+drawWheel();
+
+// چرخش گردونه
+function spinWheel(){
   const lastSpin=localStorage.getItem("bmpro_wheel_last");
   const now=Date.now();
   if(lastSpin && now - lastSpin < 24*60*60*1000){alert("فقط یکبار در 24 ساعت می‌توانید بچرخانید"); return;}
   
-  // انتخاب آیتم بر اساس احتمال
+  // انتخاب با احتمال
   const r=Math.random();
-  let acc=0; let chosen=wheelItems[0];
+  let acc=0; 
+  let chosen=wheelItems[0];
   for(let item of wheelItems){
     acc+=item.chance;
     if(r<=acc){chosen=item; break;}
   }
+
+  // چرخش تصادفی بین 3 تا 6 دور
+  const spins=Math.floor(Math.random()*3)+3;
+  const degree=spins*360 + Math.random()*360;
+  wheel.style.transition="transform 4s cubic-bezier(0.33, 1, 0.68, 1)";
+  wheel.style.transform=`rotate(${degree}deg)`;
   
-  const wheel=document.getElementById("wheel");
-  wheel.textContent="در حال چرخش...";
   setTimeout(()=>{
-    wheel.textContent=chosen.text;
+    // اضافه کردن امتیاز
     points+=chosen.points;
     document.getElementById("points").textContent=points;
     localStorage.setItem("bmpro_points",points);
     localStorage.setItem("bmpro_wheel_last",Date.now());
     document.getElementById("wheelMsg").textContent=`شما ${chosen.points} امتیاز گرفتید!`;
-  },2000);
+  },4000);
 }
+</script>
 
-// سایر توابع مثل completeTask، joinDiscordChannel، showMobileInput، submitMobile، buyItem، server1-4 بدون تغییر باقی می‌مانند
+<!-- سرورها -->
+<div class="panel">
+  <button class="toggle-btn" onclick="toggleSection('servers')">سرورها</button>
+  <div id="servers" class="hidden">
+    <button id="srv1" onclick="server1()">سرور 1</button>
+    <button id="srv2" onclick="server2()">سرور 2</button>
+    <button id="srv3" onclick="server3()">سرور 3</button>
+    <button id="srv4" onclick="server4()">سرور 4</button>
+    <img id="serverGif" class="server-gif hidden">
+    <div id="serverMsg"></div>
+    <div id="passwordSection" class="hidden">
+      <input type="text" id="serverPassword" placeholder="پسورد را وارد کنید">
+      <button onclick="checkPassword()">تایید</button>
+      <button onclick="closePassword()">بستن</button>
+      <p id="passwordMsg"></p>
+    </div>
+  </div>
+</div>
 
+<script>
+const DISCORD_CLIENT_ID = "1413174935593156718";
+const REDIRECT_URI = "https://madsmart13.github.io/BM_pro/app.html";
+
+// toggle sections
+function toggleSection(id){document.getElementById(id).classList.toggle('hidden');}
+
+// کاربر
+const fragment=new URLSearchParams(window.location.hash.slice(1));
+const accessToken=fragment.get("access_token");
+if(accessToken){fetch("https://discord.com/api/users/@me",{headers:{Authorization:`Bearer ${accessToken}`}})
+.then(res=>res.json())
+.then(user=>{document.getElementById("username").textContent=user.username+"#"+user.discriminator;document.getElementById("userid").textContent=user.id;localStorage.setItem("discord_user",JSON.stringify(user))});}
+else{const savedUser=localStorage.getItem("discord_user");if(savedUser){const user=JSON.parse(savedUser);document.getElementById("username").textContent=user.username+"#"+user.discriminator;document.getElementById("userid").textContent=user.id;}}
+
+// امتیاز
+let points=parseInt(localStorage.getItem("bmpro_points"))||0;
+document.getElementById("points").textContent=points;
+function completeTask(task){if(!localStorage.getItem(`bmpro_task_${task}`)){points+=10;localStorage.setItem("bmpro_points",points);localStorage.setItem(`bmpro_task_${task}`,true);document.getElementById("points").textContent=points;alert("تبریک! ۱۰ امتیاز گرفتید 🎉");}else{alert("این تسک رو قبلاً انجام دادید!");}}
+
+// دیسکورد
+function joinDiscordChannel(){window.open("https://discord.com/invite/kkdDtDcG","_blank");completeTask('join');}
+
+// شماره موبایل
+function showMobileInput(){document.getElementById("mobileInput").classList.remove("hidden");}
+function submitMobile(){const mobile=document.getElementById("mobile").value.trim();const msg=document.getElementById("mobileMsg");if(!/^09\d{9}$/.test(mobile)){msg.textContent="شماره نامعتبر است!";return;}msg.textContent="در انتظار تایید ادمین";if(!localStorage.getItem('bmpro_task_mobile')){points+=10;localStorage.setItem("bmpro_points",points);localStorage.setItem('bmpro_task_mobile',true);document.getElementById("points").textContent=points;}}
+
+// فروشگاه
+function buyItem(id,cost){const msg=document.getElementById("shopMsg");if(points<cost){msg.textContent="امتیاز کافی نیست!";return;}points-=cost;localStorage.setItem("bmpro_points",points);document.getElementById("points").textContent=points;msg.textContent="در سرور دیسکورد ما در بخش خرید پیام بگذارید";}
+
+// سرورها و GIF
+let currentGif=null;
+function clearGif(){const gif=document.getElementById("serverGif");gif.classList.add("hidden");gif.src="";}
+function server1(){clearGif();document.getElementById("serverMsg").textContent="ورود دستی! ای پی سرور: wii1-rFFa.aternos.me:22481";}
+function server2(){clearGif();const gif=document.getElementById("serverGif");gif.src="https://cdn3d.iconscout.com/3d/premium/thumb/cloud-server-disconnected-3d-icon-png-download-4504975.png";gif.classList.remove("hidden");document.getElementById("serverMsg").textContent="سرور افلاین است";}
+function server3(){clearGif();document.getElementById("serverMsg").textContent="در حال اتصال...";setTimeout(()=>{const gif=document.getElementById("serverGif");gif.src="https://cdn3d.iconscout.com/3d/premium/thumb/cloud-server-disconnected-3d-icon-png-download-4504975.png";gif.classList.remove("hidden");document.getElementById("serverMsg").textContent="ورود خودکار ممکن نیست";},4000);}
+function server4(){clearGif();document.getElementById("serverMsg").textContent="در حال اتصال...";setTimeout(()=>{document.getElementById("serverMsg").textContent="";document.getElementById("passwordSection").classList.remove("hidden");},4000);}
+function checkPassword(){const pass=document.getElementById("serverPassword").value;const msg=document.getElementById("passwordMsg");if(pass==="ijff[hihfhofh"){msg.textContent="wii1-rFFa.aternos.me:22481";}else{msg.textContent="پسورد اشتباه است";}}
+function closePassword(){document.getElementById("passwordSection").classList.add("hidden");}
 </script>
 </body>
 </html>
