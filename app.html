@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>BM Pro - داشبورد</title>
+<title>BM Pro </title>
 <style>
   body {
     margin: 0;
@@ -89,7 +89,8 @@
     <p id="shopMsg"></p>
   </div>
 </div>
-<!-- بعد از بخش فروشگاه و قبل از سرورها اضافه کنید -->
+
+  <!-- بخش گردونه -->
 <div class="panel">
   <button class="toggle-btn" onclick="toggleSection('wheelSection')">گردونه</button>
   <div id="wheelSection" class="hidden">
@@ -98,13 +99,14 @@
     </div>
     <button id="wheelBtn" onclick="spinWheel()" style="margin-top:15px; padding:12px 20px; border:none; border-radius:12px; font-size:1rem; cursor:pointer; background: linear-gradient(135deg,#ff00ff,#ff69b4); color:white; box-shadow:0 0 10px #ff69b4; transition:0.3s;">چرخش گردونه</button>
     <p id="wheelMsg" style="margin-top:10px; font-weight:bold; color:#ff0; text-shadow:1px 1px 3px #000;"></p>
+    <p id="wheelTimer" style="margin-top:5px; color:#ccc;"></p>
   </div>
 </div>
 
 <script>
 // گردونه گرافیکی
 const wheelItems = [
-  {text:"5 امتیاز", points:5, chance:0.59, color:"#ff0099"},
+  {text:"5 امتیاز", points:5, chance:0.66, color:"#ff0099"},
   {text:"30 امتیاز", points:30, chance:0.3, color:"#ffcc00"},
   {text:"60 امتیاز", points:60, chance:0.2, color:"#00ff99"},
   {text:"پوچ", points:0, chance:0.89, color:"#555555"},
@@ -138,13 +140,31 @@ function drawWheel(){
 }
 drawWheel();
 
-// چرخش گردونه
+// امتیاز و تایمر
+let points=parseInt(localStorage.getItem("bmpro_points"))||0;
+document.getElementById("points").textContent=points;
+
+function updateTimer(){
+  const lastSpin=localStorage.getItem("bmpro_wheel_last");
+  const timerEl=document.getElementById("wheelTimer");
+  if(!lastSpin){timerEl.textContent=""; return;}
+  const now=Date.now();
+  const diff=24*60*60*1000 - (now - lastSpin);
+  if(diff<=0){timerEl.textContent="می‌توانید گردونه را بچرخانید"; return;}
+  const hours=Math.floor(diff/3600000);
+  const mins=Math.floor((diff%3600000)/60000);
+  const secs=Math.floor((diff%60000)/1000);
+  timerEl.textContent=`زمان تا چرخش بعدی: ${hours}س ${mins}د ${secs}ث`;
+  setTimeout(updateTimer,1000);
+}
+updateTimer();
+
 function spinWheel(){
   const lastSpin=localStorage.getItem("bmpro_wheel_last");
   const now=Date.now();
   if(lastSpin && now - lastSpin < 24*60*60*1000){alert("فقط یکبار در 24 ساعت می‌توانید بچرخانید"); return;}
   
-  // انتخاب با احتمال
+  // انتخاب آیتم بر اساس احتمال
   const r=Math.random();
   let acc=0; 
   let chosen=wheelItems[0];
@@ -160,16 +180,17 @@ function spinWheel(){
   wheel.style.transform=`rotate(${degree}deg)`;
   
   setTimeout(()=>{
-    // اضافه کردن امتیاز
     points+=chosen.points;
     document.getElementById("points").textContent=points;
     localStorage.setItem("bmpro_points",points);
     localStorage.setItem("bmpro_wheel_last",Date.now());
     document.getElementById("wheelMsg").textContent=`شما ${chosen.points} امتیاز گرفتید!`;
+    updateTimer();
   },4000);
 }
 </script>
 
+ 
 <!-- سرورها -->
 <div class="panel">
   <button class="toggle-btn" onclick="toggleSection('servers')">سرورها</button>
